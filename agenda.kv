@@ -1,0 +1,40 @@
+<Agenda>:
+    canvas:
+        Color:
+            rgba: (0.9, 0.9, 0.9, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Button:
+        id: more_button
+        text: ''
+        background_normal: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
+        background_down: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
+        size: 32, 32
+        right: app.window.width
+        top: app.window.height
+        on_release: root.top_menu_more.open(self)
+
+
+<AgendaTopMenuDropDown>:
+    Button:
+        id: sync_button
+        text: 'Sync agenda'
+        size_hint_y: None
+        height: 44
+        on_release: root.app.sync_all()
+
+    Button:
+        id: settings_button
+        text: 'Settings'
+        size_hint_y: None
+        height: 44
+        on_release: root.app.open_settings_dialog()
+
+
+<WeekView>:
+    Label:
+        id: week_view_label
+        text: 'Placeholder'
+
