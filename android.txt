@@ -1,0 +1,3 @@
+title=AutiAgenda
+author=Rob Derksen (boisei0)
+orientation=portrait

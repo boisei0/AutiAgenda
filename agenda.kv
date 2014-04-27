@@ -6,35 +6,142 @@
             pos: self.pos
             size: self.size
 
+    Image:
+        id: logo
+        source: '/res/logo.png'
+        size: app.window.width / 7, app.window.width / 7
+        left: 0
+        top: app.window.height
+        keep_ratio: True
+        allow_stretch: True
+
+    Button:
+        id: prev_day_button
+        text: ''
+        size: app.window.width / 7, app.window.width / 7
+        right: app.window.width - (app.window.width / 7 * 5)
+        top: app.window.height
+        on_release: root.display_prev_day()
+        Image:
+            source: 'res/drawable-mdpi/ic_find_previous_holo_light.png'
+            keep_ratio: True
+            allow_stretch: True
+            center: prev_day_button.center[0], prev_day_button.center[1]
+
+    Button:
+        id: selected_day_button
+        text: root.selected_date
+        size: app.window.width / 7 * 2, app.window.width / 7
+        right: app.window.width - (app.window.width / 7 * 3)
+        top: app.window.height
+        on_release: root.selected_date_dropdown.open(self)
+
+    Button:
+        id: next_day_button
+        text: ''
+        size: app.window.width / 7, app.window.width / 7
+        right: app.window.width - (app.window.width / 7 * 2)
+        top: app.window.height
+        on_release: root.display_next_day()
+        Image:
+            source: 'res/drawable-mdpi/ic_find_next_holo_light.png'
+            keep_ratio: True
+            allow_stretch: True
+            center: next_day_button.center[0], next_day_button.center[1]
+
+    Button:
+        id: new_activity_button
+        text: ''
+        size: app.window.width / 7, app.window.width / 7
+        right: app.window.width - (app.window.width / 7)
+        top: app.window.height
+        on_release: root.new_activity()
+        Image:
+            source: 'res/drawable-mdpi/ic_input_add.png'
+            keep_ratio: True
+            allow_stretch: True
+            center: new_activity_button.center[0], new_activity_button.center[1]
+
     Button:
         id: more_button
         text: ''
-        background_normal: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
-        background_down: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
-        size: 32, 32
+        #background_normal: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
+        #background_down: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
+        size: app.window.width / 7, app.window.width / 7
         right: app.window.width
         top: app.window.height
         on_release: root.top_menu_more.open(self)
+        Image:
+            source: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
+            keep_ratio: True
+            allow_stretch: True
+            center: more_button.center[0], more_button.center[1]
 
 
 <AgendaTopMenuDropDown>:
+    width: app.window.width / 4
+
+    Button:
+        id: courses_button
+        text: 'Courses'
+        size_hint_y: None
+        width: app.window.width / 4
+        height: app.window.height / 10
+        on_release: root.app.display_courses()
+
+    Button:
+        id: schedule_button
+        text: 'Schedule'
+        size_hint_y: None
+        width: app.window.width / 4
+        height: app.window.height / 10
+        on_release: root.app.display_schedule()
+
     Button:
         id: sync_button
         text: 'Sync agenda'
         size_hint_y: None
-        height: 44
+        width: app.window.width / 4
+        height: app.window.height / 10
         on_release: root.app.sync_all()
+
+    Button:
+        id: about_button
+        text: 'About...'
+        size_hint_y: None
+        width: app.window.width / 4
+        height: app.window.height / 10
+        on_release: root.app.display_about()
 
     Button:
         id: settings_button
         text: 'Settings'
         size_hint_y: None
-        height: 44
+        width: app.window.width / 4
+        height: app.window.height / 10
         on_release: root.app.open_settings_dialog()
+        # on_release: root.add_widget(root.app.settings)
 
+<SelectedDateDropDown>:
+    width: app.window.width / 3
 
-<WeekView>:
-    Label:
-        id: week_view_label
+    Button:
+        id: placeholder
         text: 'Placeholder'
+        size_hint_y: None
+        height: app.window.height / 10
+
+
+<AboutDialog>:
+    orientation: 'vertical'
+    Label:
+        id: content_label
+        text: root.dialog_content
+        text_size: (root.root.about_popup.size[0] - (self.padding_x * 7.5), None)
+        padding_x: 5
+
+    Button:
+        id: close_button
+        text: 'Close'
+        on_release: root.dismiss_dialog()
 
