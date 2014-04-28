@@ -1,7 +1,9 @@
+#:import DatePicker datepicker.DatePicker
+
 <Agenda>:
     canvas:
         Color:
-            rgba: (0.9, 0.9, 0.9, 1.0)
+            rgba: (0.71, 0.71, 0.71, 1.0)
         Rectangle:
             pos: self.pos
             size: self.size
@@ -125,11 +127,10 @@
 <SelectedDateDropDown>:
     width: app.window.width / 3
 
-    Button:
-        id: placeholder
-        text: 'Placeholder'
+    DatePicker:
+        id: date_picker
         size_hint_y: None
-        height: app.window.height / 10
+        height: app.window.height / 3
 
 
 <AboutDialog>:

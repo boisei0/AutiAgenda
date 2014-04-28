@@ -1,0 +1,30 @@
+[
+    {
+        "type": "string",
+        "title": "Name",
+        "desc": "Name of the course",
+        "section": "course1",
+        "key": "name"
+    },
+    {
+        "type": "string",
+        "title": "Abbreviation",
+        "desc": "Abbreviation of the course",
+        "section": "course1",
+        "key": "abbr"
+    },
+    {
+        "type": "color",
+        "title": "Colour",
+        "desc": "Colour of the course",
+        "section": "course1",
+        "key": "color"
+    },
+    {
+        "type": "bool",
+        "title": "Active",
+        "desc": "Is the course active",
+        "section": "course1",
+        "key": "active"
+    }
+]
