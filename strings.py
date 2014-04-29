@@ -61,13 +61,13 @@ class TextData:
     }
 
     text = {
-        'homework': 'homework',
-        'schedule': 'schedule',
-        'courses': 'courses',
-        'sync': 'synchronize',
-        'agenda': 'personal organizer',
-        'settings': 'settings',
-        'close': 'close'
+        'homework': _('homework'),
+        'schedule': _('schedule'),
+        'courses': _('courses'),
+        'sync': _('synchronise'),
+        'agenda': _('personal organizer'),
+        'settings': _('settings'),
+        'close': _('close')
     }
 
 
