@@ -170,3 +170,7 @@ msgstr "instellingen"
 #: strings.py:70
 msgid "close"
 msgstr "sluiten"
+
+#: strings.py:71
+msgid "lesson"
+msgstr "les"

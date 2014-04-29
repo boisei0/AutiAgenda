@@ -67,7 +67,8 @@ class TextData:
         'sync': _('synchronise'),
         'agenda': _('personal organizer'),
         'settings': _('settings'),
-        'close': _('close')
+        'close': _('close'),
+        'lesson': _('lesson')
     }
 
 
