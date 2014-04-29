@@ -1,0 +1,145 @@
+# AutiAgenda
+# Rob Derksen <boisei0@hubsec.eu>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AutiAgenda 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-29 16:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: strings.py:17
+msgid "January"
+msgstr ""
+
+#: strings.py:18
+msgid "February"
+msgstr ""
+
+#: strings.py:19
+msgid "March"
+msgstr ""
+
+#: strings.py:20
+msgid "April"
+msgstr ""
+
+#: strings.py:21
+msgid "May"
+msgstr ""
+
+#: strings.py:22
+msgid "June"
+msgstr ""
+
+#: strings.py:23
+msgid "Juli"
+msgstr ""
+
+#: strings.py:24
+msgid "August"
+msgstr ""
+
+#: strings.py:25
+msgid "September"
+msgstr ""
+
+#: strings.py:26
+msgid "October"
+msgstr ""
+
+#: strings.py:27
+msgid "November"
+msgstr ""
+
+#: strings.py:28
+msgid "December"
+msgstr ""
+
+#: strings.py:32
+msgid "Mo"
+msgstr ""
+
+#: strings.py:33
+msgid "Tu"
+msgstr ""
+
+#: strings.py:34
+msgid "We"
+msgstr ""
+
+#: strings.py:35
+msgid "Th"
+msgstr ""
+
+#: strings.py:36
+msgid "Fr"
+msgstr ""
+
+#: strings.py:37
+msgid "Sa"
+msgstr ""
+
+#: strings.py:38
+msgid "Su"
+msgstr ""
+
+#: strings.py:42
+msgid "About..."
+msgstr ""
+
+#: strings.py:43
+#, python-brace-format
+msgid "{0} was made by {1} for the Kivy App Contest 2014."
+msgstr ""
+
+#: strings.py:47
+msgid "Name"
+msgstr ""
+
+#: strings.py:48
+msgid "Name of the course"
+msgstr ""
+
+#: strings.py:49
+msgid "Abbreviation"
+msgstr ""
+
+#: strings.py:50
+msgid "Abbreviation of the course"
+msgstr ""
+
+#: strings.py:51
+msgid "Colour"
+msgstr ""
+
+#: strings.py:52
+msgid "Colour of the course"
+msgstr ""
+
+#: strings.py:53
+msgid "Active"
+msgstr ""
+
+#: strings.py:54
+msgid "Is the course active"
+msgstr ""
+
+#: strings.py:58
+msgid "Yesterday"
+msgstr ""
+
+#: strings.py:59
+msgid "Today"
+msgstr ""
+
+#: strings.py:60
+msgid "Tomorrow"
+msgstr ""

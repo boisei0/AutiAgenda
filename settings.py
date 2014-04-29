@@ -9,7 +9,7 @@ from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.popup import Popup
 from kivy.uix.settings import Settings, SettingItem, SettingSpacer
 
-__author__ = 'boisei0'
+__author__ = 'Rob Derksen (boisei0)'
 
 
 class CustomSettings(Settings):

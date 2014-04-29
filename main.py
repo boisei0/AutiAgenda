@@ -12,6 +12,14 @@ from kivy.uix.popup import Popup
 from kivy.uix.settings import InterfaceWithSidebar
 from kivy.uix.widget import Widget
 
+try:
+    import cProfile
+    profiler_loaded = True
+except ImportError:
+    profiler_loaded = False
+
+from os import path
+
 from datepicker import DatePicker
 from settings import CustomSettings
 
@@ -117,10 +125,12 @@ class AboutDialog(BoxLayout):
 
 
 class AgendaApp(App):
-    def __init__(self):
+    def __init__(self, debug=False):
         super(AgendaApp, self).__init__()
 
         self.window = None
+        self.profile = None
+        self.debug = debug
 
     def build(self):
         from kivy.base import EventLoop
@@ -130,6 +140,24 @@ class AgendaApp(App):
         self.title = __appname__
 
         return Agenda()
+
+    def on_start(self):
+        if self.debug and profiler_loaded:
+            self.profile = cProfile.Profile()
+            self.profile.enable()
+
+    def on_stop(self):
+        if self.debug and profiler_loaded:
+            self.profile.disable()
+            self.profile.dump_stats(path.join(self.user_data_dir, '{}.profile'.format(__appname__)))
+
+    def on_pause(self):
+        if self.debug and profiler_loaded:
+            self.profile.dump_stats(path.join(self.user_data_dir, '{}.profile'.format(__appname__)))
+        return True
+
+    def on_resume(self):
+        pass
 
 
 if __name__ == '__main__':

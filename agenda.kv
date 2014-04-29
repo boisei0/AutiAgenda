@@ -125,12 +125,13 @@
         # on_release: root.add_widget(root.app.settings)
 
 <SelectedDateDropDown>:
-    width: app.window.width / 3
+    width: app.window.width / 2
 
     DatePicker:
+        root_app: app
         id: date_picker
         size_hint_y: None
-        height: app.window.height / 3
+        height: app.window.height / 2
 
 
 <AboutDialog>:
