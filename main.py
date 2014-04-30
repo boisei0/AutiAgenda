@@ -26,16 +26,18 @@ from settings import CustomSettings
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
 
+base_path = path.dirname(__file__)
+
 config_settings = ConfigParser()
-config_settings.read('config/autiagenda.ini')
+config_settings.read(path.join(path.join(base_path, 'config'), 'autiagenda.ini'))
 settings = CustomSettings(interface_cls=InterfaceWithSidebar)
 # settings.add_json_panel('Date / Time', config, 'datetime.json')
 # TODO: Add settings / config later
 
 config_courses = ConfigParser()
-config_courses.read('config/courses.ini')
+config_courses.read(path.join(path.join(base_path, 'config'), 'courses.ini'))
 courses = CustomSettings(interface_cls=InterfaceWithSidebar)
-courses.add_json_panel('Course 1', config_courses, 'config/courses.json')
+courses.add_json_panel('Course 1', config_courses, path.join(path.join(base_path, 'config'), 'courses.json'))
 
 Factory.register('DatePicker', DatePicker)
 
