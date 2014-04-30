@@ -39,7 +39,7 @@ msgid "June"
 msgstr "giugno"
 
 #: strings.py:23
-msgid "Juli"
+msgid "July"
 msgstr "luglio"
 
 #: strings.py:24

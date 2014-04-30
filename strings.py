@@ -20,7 +20,7 @@ class TextData:
         4: _('April'),
         5: _('May'),
         6: _('June'),
-        7: _('Juli'),
+        7: _('July'),
         8: _('August'),
         9: _('September'),
         10: _('October'),
@@ -39,19 +39,19 @@ class TextData:
     }
 
     about = {
-        'title': _('About...'),
-        'text': _('{0} was made by {1} for the Kivy App Contest 2014.')
+        'title': _('About...'),  # as in: about the program
+        'text': _('{0} was made by {1} for the Kivy App Contest 2014.')  # {0} as in name of the program, {1} as in name of the author
     }
 
     courses_dialog = {
         'name_title': _('Name'),
-        'name_descr': _('Name of the course'),
+        'name_descr': _('Name of the course'),  # course as in: subject, 'study material'
         'abbr_title': _('Abbreviation'),
-        'abbr_descr': _('Abbreviation of the course'),
+        'abbr_descr': _('Abbreviation of the course'),  # course as in: subject, 'study material'
         'col_title': _('Colour'),
-        'col_descr': _('Colour of the course'),
+        'col_descr': _('Colour of the course'),  # course as in: subject, 'study material'
         'active_title': _('Active'),
-        'active_descr': _('Is the course active')
+        'active_descr': _('Is the course active')  # course as in: subject, 'study material'
     }
 
     date_name = {
@@ -62,12 +62,12 @@ class TextData:
 
     text = {
         'homework': _('homework'),
-        'schedule': _('schedule'),
-        'courses': _('courses'),
+        'schedule': _('schedule'),  # as in: time schedule
+        'courses': _('courses'),  # course as in: subject, 'study material'
         'sync': _('synchronise'),
         'agenda': _('personal organizer'),
-        'settings': _('settings'),
-        'close': _('close'),
+        'settings': _('settings'),  # as in: software settings
+        'close': _('close'),  # as in: to close
         'lesson': _('lesson')
     }
 
