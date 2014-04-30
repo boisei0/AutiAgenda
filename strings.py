@@ -1,5 +1,6 @@
 import gettext
 import locale
+import os
 
 __author__ = 'Rob Derksen (boisei0)'
 
@@ -71,6 +72,14 @@ class TextData:
         'lesson': _('lesson')
     }
 
+    languages = {
+        'en': 'English',
+        'nl': 'Dutch',
+        'it': 'Italian',
+        'es': 'Spanish',
+        'fr': 'French',
+    }
+
 
 # end ignoring translations
 del _
@@ -81,3 +90,17 @@ def get_locale():
         return locale.getdefaultlocale()[0][0:2]
     else:
         return 'en'
+
+
+def list_translations():
+    translations = []
+    base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
+    files = os.listdir(base_path)
+    for item in files:
+        if os.path.isdir(os.path.join(base_path, item)):
+            translations.append(item)
+    return translations
+
+
+def cap_first_letter(text):
+    return text[0].upper() + text[1:]

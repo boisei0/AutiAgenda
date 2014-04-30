@@ -4,7 +4,7 @@ kivy.require('1.8.0')
 from kivy.app import App
 from kivy.config import ConfigParser
 from kivy.factory import Factory
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
@@ -18,10 +18,12 @@ try:
 except ImportError:
     profiler_loaded = False
 
+import gettext
 from os import path
 
 from datepicker import DatePicker
 from settings import CustomSettings
+from strings import TextData, get_locale, list_translations, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
@@ -41,12 +43,29 @@ courses.add_json_panel('Course 1', config_courses, path.join(path.join(base_path
 
 Factory.register('DatePicker', DatePicker)
 
+domain = 'agenda'
+locale_directory = path.dirname(path.abspath(__file__)) + "/locale"
+gettext.bindtextdomain(domain, locale_directory)
+gettext.textdomain(domain)
+gettext.install(domain, localedir=locale_directory, unicode=True)
+
+available_translations = list_translations()
+translations = {}
+for translation in available_translations:
+    if gettext.find(domain, locale_directory, languages=[translation], all=1) is not None:
+        print(gettext.find(domain, locale_directory, languages=[translation], all=1))
+        translations[translation] = gettext.translation(domain, localedir=locale_directory, languages=[translation])
+print(translations)
+
+strings = TextData()
+
 
 class Agenda(Widget):
     selected_date = 'Today'
-    about_popup = Popup(title='About...', size_hint=(0.3, 0.5), auto_dismiss=False)
-    settings_popup = Popup(title='Settings', size_hint=(0.8, 0.7), auto_dismiss=False)
-    courses_popup = Popup(title='Courses', size_hint=(0.8, 0.7), content=courses, auto_dismiss=False)
+    about_popup = Popup(size_hint=(0.3, 0.5), auto_dismiss=False)
+    settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
+    courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), content=courses,
+                          auto_dismiss=False)
 
     def __init__(self, **kwargs):
         super(Agenda, self).__init__(**kwargs)
@@ -84,11 +103,14 @@ class Agenda(Widget):
         self.top_menu_more.dismiss()
 
     def display_about(self):
+        self.about_popup.title = _(strings.about['title'])
+        self.about_popup.content.set_dialog_content(_(strings.about['text']).format(__appname__, __author__))
         self.about_popup.open()
         self.top_menu_more.dismiss()
 
     def display_next_day(self):
-        pass
+        print('Installing translation...')
+        translations['it'].install(unicode=True)
 
     def display_prev_day(self):
         pass
@@ -117,13 +139,16 @@ class SelectedDateDropDown(DropDown):
 
 class AboutDialog(BoxLayout):
     root = ObjectProperty(None)
-    dialog_content = '{} was made by {} for the Kivy App Contest 2014.'.format(__appname__, __author__)
+    dialog_content = StringProperty('')
 
     def __init__(self, **kwargs):
         super(AboutDialog, self).__init__(**kwargs)
 
     def dismiss_dialog(self):
         self.root.about_popup.dismiss()
+
+    def set_dialog_content(self, dialog_content):
+        self.dialog_content = dialog_content
 
 
 class AgendaApp(App):

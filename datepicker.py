@@ -24,8 +24,6 @@ class DatePicker(BoxLayout):
         self.canvas.add(Color(0.81, 0.81, 0.81))
         self.canvas.add(Rectangle(pos=[self.center_x, self.center_y], size=[self.width, self.height]))
 
-        print(self.root_app)
-
         top_row = BoxLayout(size_hint_y=None, height=(self.height / 3))
 
         self.selected_month = int(selected_month)

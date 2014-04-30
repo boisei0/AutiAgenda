@@ -64,35 +64,35 @@ msgstr "dicembre"
 
 #: strings.py:32
 msgid "Mo"
-msgstr "lu"
+msgstr "Lu"
 
 #: strings.py:33
 msgid "Tu"
-msgstr "ma"
+msgstr "Ma"
 
 #: strings.py:34
 msgid "We"
-msgstr "me"
+msgstr "Me"
 
 #: strings.py:35
 msgid "Th"
-msgstr "gi"
+msgstr "Gi"
 
 #: strings.py:36
 msgid "Fr"
-msgstr "ve"
+msgstr "Ve"
 
 #: strings.py:37
 msgid "Sa"
-msgstr "sa"
+msgstr "Sa"
 
 #: strings.py:38
 msgid "Su"
-msgstr "do"
+msgstr "Do"
 
 #: strings.py:42
 msgid "About..."
-msgstr "riguardo a"
+msgstr "Riguardo a..."
 
 #: strings.py:43
 #, python-brace-format
@@ -101,47 +101,47 @@ msgstr "{0} è prodotto da {1} per il Kivy App Contest 2014."
 
 #: strings.py:47
 msgid "Name"
-msgstr "nome"
+msgstr "Nome"
 
 #: strings.py:48
 msgid "Name of the course"
-msgstr "nome della materia"
+msgstr "Nome della materia"
 
 #: strings.py:49
 msgid "Abbreviation"
-msgstr "abbreviazione"
+msgstr "Abbreviazione"
 
 #: strings.py:50
 msgid "Abbreviation of the course"
-msgstr "abbreviazione della materia"
+msgstr "Abbreviazione della materia"
 
 #: strings.py:51
 msgid "Colour"
-msgstr "colore"
+msgstr "Colore"
 
 #: strings.py:52
 msgid "Colour of the course"
-msgstr "colore della materia"
+msgstr "Colore della materia"
 
 #: strings.py:53
 msgid "Active"
-msgstr "attivo"
+msgstr "Attivo"
 
 #: strings.py:54
 msgid "Is the course active"
-msgstr "è attiva la materia"
+msgstr "È attiva la materia"
 
 #: strings.py:58
 msgid "Yesterday"
-msgstr "ieri"
+msgstr "Ieri"
 
 #: strings.py:59
 msgid "Today"
-msgstr "oggi"
+msgstr "Oggi"
 
 #: strings.py:60
 msgid "Tomorrow"
-msgstr "domani"
+msgstr "Domani"
 
 #: strings.py:64
 msgid "homework"
