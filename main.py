@@ -126,7 +126,7 @@ class Agenda(Widget):
 
     def new_activity(self):
         print('Installing translations...')
-        translations['it'].install(unicode=True)
+        translations['nl'].install(unicode=True)
 
     def open_top_menu_more(self, root):
         self.top_menu_more.on_translation()

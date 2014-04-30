@@ -1,0 +1,177 @@
+# AutiAgenda
+# Rob Derksen <boisei0@hubsec.eu>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AutiAgenda 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-29 16:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: strings.py:17
+msgid "January"
+msgstr "Janvier"
+
+#: strings.py:18
+msgid "February"
+msgstr "Février"
+
+#: strings.py:19
+msgid "March"
+msgstr "Mars"
+
+#: strings.py:20
+msgid "April"
+msgstr "Avril"
+
+#: strings.py:21
+msgid "May"
+msgstr "Mai"
+
+#: strings.py:22
+msgid "June"
+msgstr "Juin"
+
+#: strings.py:23
+msgid "Juli"
+msgstr "Juillet"
+
+#: strings.py:24
+msgid "August"
+msgstr "Août"
+
+#: strings.py:25
+msgid "September"
+msgstr "Septembre"
+
+#: strings.py:26
+msgid "October"
+msgstr "Octobre"
+
+#: strings.py:27
+msgid "November"
+msgstr "Novembre"
+
+#: strings.py:28
+msgid "December"
+msgstr "Décembre"
+
+#: strings.py:32
+msgid "Mo"
+msgstr "lun"
+
+#: strings.py:33
+msgid "Tu"
+msgstr "mar"
+
+#: strings.py:34
+msgid "We"
+msgstr "mer"
+
+#: strings.py:35
+msgid "Th"
+msgstr "jeu"
+
+#: strings.py:36
+msgid "Fr"
+msgstr "ven"
+
+#: strings.py:37
+msgid "Sa"
+msgstr "sam"
+
+#: strings.py:38
+msgid "Su"
+msgstr "dim"
+
+#: strings.py:42
+msgid "About..."
+msgstr "à propos"
+
+#: strings.py:43
+#, python-brace-format
+msgid "{0} was made by {1} for the Kivy App Contest 2014."
+msgstr "{0} fait par {1} pour le Kivy App contest 2014."
+
+#: strings.py:47
+msgid "Name"
+msgstr "nom"
+
+#: strings.py:48
+msgid "Name of the course"
+msgstr "nom de la matière"
+
+#: strings.py:49
+msgid "Abbreviation"
+msgstr "abréviation"
+
+#: strings.py:50
+msgid "Abbreviation of the course"
+msgstr "abréviation de la matière"
+
+#: strings.py:51
+msgid "Colour"
+msgstr "couleur"
+
+#: strings.py:52
+msgid "Colour of the course"
+msgstr "couleur de la matière"
+
+#: strings.py:53
+msgid "Active"
+msgstr "actif"
+
+#: strings.py:54
+msgid "Is the course active"
+msgstr "La matière est-elle active"
+
+#: strings.py:58
+msgid "Yesterday"
+msgstr "hier"
+
+#: strings.py:59
+msgid "Today"
+msgstr "aujourd'hui"
+
+#: strings.py:60
+msgid "Tomorrow"
+msgstr "demain"
+
+#: strings.py:64
+msgid "homework"
+msgstr "devoirs"
+
+#: strings.py:65
+msgid "schedule"
+msgstr "emploi du temps"
+
+#: strings.py:66
+msgid "courses"
+msgstr "matières"
+
+#: strings.py:67
+msgid "synchronise"
+msgstr "synchroniser"
+
+#: strings.py:68
+msgid "personal organizer"
+msgstr "agenda personell"
+
+#: strings.py:69
+msgid "settings"
+msgstr "paramètres"
+
+#: strings.py:70
+msgid "close"
+msgstr "fermer"
+
+#: strings.py:71
+msgid "lesson"
+msgstr "cours"
