@@ -7,6 +7,7 @@ from kivy.factory import Factory
 from kivy.properties import ObjectProperty, StringProperty
 
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.dropdown import DropDown
 from kivy.uix.popup import Popup
 from kivy.uix.settings import InterfaceWithSidebar
@@ -18,6 +19,7 @@ try:
 except ImportError:
     profiler_loaded = False
 
+import datetime
 import gettext
 from os import path
 
@@ -61,14 +63,20 @@ strings = TextData()
 
 
 class Agenda(Widget):
-    selected_date = 'Today'
+    selected_day_button = Button()
+    selected_date = datetime.datetime(datetime.datetime.today().year, datetime.datetime.today().month,
+                                      datetime.datetime.today().day)  # TODO: Reformat this... :+
+    selected_day_text = StringProperty('Today')
+
     about_popup = Popup(size_hint=(0.3, 0.5), auto_dismiss=False)
     settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
     courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), content=courses,
                           auto_dismiss=False)
 
-    def __init__(self, **kwargs):
+    def __init__(self, app, **kwargs):
         super(Agenda, self).__init__(**kwargs)
+
+        self.app = app
 
         self.top_menu_more = AgendaTopMenuDropDown(self)
         self.selected_date_dropdown = SelectedDateDropDown(self)
@@ -109,23 +117,58 @@ class Agenda(Widget):
         self.top_menu_more.dismiss()
 
     def display_next_day(self):
-        print('Installing translation...')
-        translations['it'].install(unicode=True)
+        self.selected_date += datetime.timedelta(days=1)
+        self.selected_day_button.text = self.format_selected_date()
 
     def display_prev_day(self):
-        pass
+        self.selected_date -= datetime.timedelta(days=1)
+        self.selected_day_button.text = self.format_selected_date()
 
     def new_activity(self):
-        pass
+        print('Installing translations...')
+        translations['it'].install(unicode=True)
+
+    def open_top_menu_more(self, root):
+        self.top_menu_more.on_translation()
+        self.top_menu_more.open(root)
+
+    def format_selected_date(self):
+        today_full = datetime.datetime.today()
+        today = datetime.datetime(year=today_full.year, month=today_full.month, day=today_full.day)
+        yesterday_full = today - datetime.timedelta(days=1)
+        yesterday = datetime.datetime(year=yesterday_full.year, month=yesterday_full.month, day=yesterday_full.day)
+        tomorrow_full = today + datetime.timedelta(days=1)
+        tomorrow = datetime.datetime(year=tomorrow_full.year, month=tomorrow_full.month, day=tomorrow_full.day)
+        if self.selected_date == today:
+            return _(strings.date_name['today'])
+        elif self.selected_date == yesterday:
+            return _(strings.date_name['yesterday'])
+        elif self.selected_date == tomorrow:
+            return _(strings.date_name['tomorrow'])
+        else:
+            return self.selected_date.strftime('%d-%m %Y')
 
 
 class AgendaTopMenuDropDown(DropDown):
+    courses_text = StringProperty(cap_first_letter(_(strings.text['courses'])))
+    schedule_text = StringProperty(cap_first_letter(_(strings.text['schedule'])))
+    sync_text = StringProperty(cap_first_letter(_(strings.text['sync'])))
+    about_text = StringProperty(cap_first_letter(_(strings.about['title'])))
+    settings_text = StringProperty(cap_first_letter(_(strings.text['settings'])))
+
     def __init__(self, app):
         super(AgendaTopMenuDropDown, self).__init__()
 
         self.auto_width = False
 
         self.app = app
+
+    def on_translation(self):
+        self.courses_text = cap_first_letter(_(strings.text['courses']))
+        self.schedule_text = cap_first_letter(_(strings.text['schedule']))
+        self.sync_text = cap_first_letter(_(strings.text['sync']))
+        self.about_text = cap_first_letter(_(strings.about['title']))
+        self.settings_text = cap_first_letter(_(strings.text['settings']))
 
 
 class SelectedDateDropDown(DropDown):
@@ -159,6 +202,8 @@ class AgendaApp(App):
         self.profile = None
         self.debug = debug
 
+        self.strings = strings
+
     def build(self):
         from kivy.base import EventLoop
         EventLoop.ensure_window()
@@ -166,7 +211,7 @@ class AgendaApp(App):
         self.window = EventLoop.window
         self.title = __appname__
 
-        return Agenda()
+        return Agenda(self)
 
     def on_start(self):
         if self.debug and profiler_loaded:

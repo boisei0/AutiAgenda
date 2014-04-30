@@ -78,6 +78,11 @@ class TextData:
         'it': 'Italian',
         'es': 'Spanish',
         'fr': 'French',
+        'de': 'German',
+        'se': 'Swedish',
+        'ta': 'Tagalog',
+        'po': 'Portuguese',
+        'dk': 'Danish',
     }
 
 

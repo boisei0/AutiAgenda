@@ -1,4 +1,5 @@
 #:import DatePicker datepicker.DatePicker
+#:import cfl strings.cap_first_letter
 
 <Agenda>:
     canvas:
@@ -32,7 +33,7 @@
 
     Button:
         id: selected_day_button
-        text: root.selected_date
+        text: root.selected_day_text
         size: app.window.width / 7 * 2, app.window.width / 7
         right: app.window.width - (app.window.width / 7 * 3)
         top: app.window.height
@@ -72,7 +73,7 @@
         size: app.window.width / 7, app.window.width / 7
         right: app.window.width
         top: app.window.height
-        on_release: root.top_menu_more.open(self)
+        on_release: root.open_top_menu_more(self)
         Image:
             source: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
             keep_ratio: True
@@ -85,7 +86,7 @@
 
     Button:
         id: courses_button
-        text: 'Courses'
+        text: root.courses_text
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
@@ -93,7 +94,7 @@
 
     Button:
         id: schedule_button
-        text: 'Schedule'
+        text: root.schedule_text
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
@@ -101,7 +102,7 @@
 
     Button:
         id: sync_button
-        text: 'Sync agenda'
+        text: root.sync_text
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
@@ -109,7 +110,7 @@
 
     Button:
         id: about_button
-        text: 'About...'
+        text: root.about_text
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
@@ -117,12 +118,11 @@
 
     Button:
         id: settings_button
-        text: 'Settings'
+        text: root.settings_text
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
         on_release: root.app.open_settings_dialog()
-        # on_release: root.add_widget(root.app.settings)
 
 <SelectedDateDropDown>:
     width: app.window.width / 2
