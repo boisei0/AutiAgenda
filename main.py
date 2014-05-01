@@ -69,6 +69,7 @@ class Agenda(Widget):
     selected_day_text = StringProperty('Today')
 
     about_popup = Popup(size_hint=(0.3, 0.5), auto_dismiss=False)
+    sync_dialog = Popup(size_hint=(0.7, 0.6), auto_dismiss=False)
     settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
     courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), content=courses,
                           auto_dismiss=False)
@@ -83,6 +84,9 @@ class Agenda(Widget):
 
         self.about_popup.attach_to = self
         self.about_popup.content = AboutDialog(root=self)
+
+        self.sync_dialog.attach_to = self
+        self.sync_dialog.content = SyncDialog(root=self)
 
         self.settings_popup.attach_to = self
         self.settings = settings
@@ -100,6 +104,7 @@ class Agenda(Widget):
 
     def sync_all(self):
         print('sync')
+        self.sync_dialog.open()
         self.top_menu_more.dismiss()
 
     def display_courses(self):
@@ -126,7 +131,7 @@ class Agenda(Widget):
 
     def new_activity(self):
         print('Installing translations...')
-        translations['nl'].install(unicode=True)
+        translations['es'].install(unicode=True)
 
     def open_top_menu_more(self, root):
         self.top_menu_more.on_translation()
@@ -192,6 +197,19 @@ class AboutDialog(BoxLayout):
 
     def set_dialog_content(self, dialog_content):
         self.dialog_content = dialog_content
+
+
+class SyncDialog(BoxLayout):
+    root = ObjectProperty(None)
+    instruction_text = StringProperty('')
+    token_text = StringProperty('')
+    close_button_text = StringProperty('')
+
+    def __init__(self, **kwargs):
+        super(SyncDialog, self).__init__(**kwargs)
+
+    def dismiss_dialog(self):
+        self.root.sync_dialog.dismiss()
 
 
 class AgendaApp(App):

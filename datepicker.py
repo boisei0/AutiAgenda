@@ -30,9 +30,9 @@ class DatePicker(BoxLayout):
         self.selected_year = int(selected_year)
         self.selected_day = int(selected_day)
 
-        self.prev_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='-', bold=True)
-        self.prev_month_button.background_normal = 'res/drawable-mdpi/ic_find_previous_holo_dark.png'
-        self.prev_month_button.background_down = 'res/drawable-mdpi/ic_find_previous_holo_light.png'
+        self.prev_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='<-', bold=True)
+        # self.prev_month_button.background_normal = 'res/drawable-mdpi/ic_find_previous_holo_dark.png'
+        # self.prev_month_button.background_down = 'res/drawable-mdpi/ic_find_previous_holo_light.png'
         self.prev_month_button.bind(on_release=self.on_prev_month)
         top_row.add_widget(self.prev_month_button)
 
@@ -40,9 +40,9 @@ class DatePicker(BoxLayout):
                                                               self.selected_year), size_hint_x=0.3)
         top_row.add_widget(self.selected_month_label)
 
-        self.next_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='+', bold=True)
-        self.next_month_button.background_normal = 'res/drawable-mdpi/ic_find_next_holo_dark.png'
-        self.next_month_button.background_down = 'res/drawable-mdpi/ic_find_next_holo_light.png'
+        self.next_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='->', bold=True)
+        # self.next_month_button.background_normal = 'res/drawable-mdpi/ic_find_next_holo_dark.png'
+        # self.next_month_button.background_down = 'res/drawable-mdpi/ic_find_next_holo_light.png'
         self.next_month_button.bind(on_release=self.on_next_month)
         top_row.add_widget(self.next_month_button)
 

@@ -82,7 +82,7 @@
 
 
 <AgendaTopMenuDropDown>:
-    width: app.window.width / 4
+    width: app.window.width / 7 * 3
 
     Button:
         id: courses_button
@@ -142,8 +142,25 @@
         text_size: (root.root.about_popup.size[0] - (self.padding_x * 7.5), None)
         padding_x: 5
 
+    Widget:
+        id: empty_widget
+
     Button:
         id: close_button
         text: 'Close'
         on_release: root.dismiss_dialog()
 
+<SyncDialog>:
+    orientation: 'vertical'
+    Label:
+        id: instruction_label
+        text: root.instruction_text
+
+    TextInput:
+        id: token_input
+        text: root.token_text
+
+    Button:
+        id: close_button
+        text: root.close_button_text
+        on_release: root.dismiss_dialog()

@@ -1,0 +1,177 @@
+# AutiAgenda
+# Rob Derksen <boisei0@hubsec.eu>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AutiAgenda 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-29 16:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: strings.py:17
+msgid "January"
+msgstr "Enero"
+
+#: strings.py:18
+msgid "February"
+msgstr "Pebrero"
+
+#: strings.py:19
+msgid "March"
+msgstr "Marso"
+
+#: strings.py:20
+msgid "April"
+msgstr "Abril"
+
+#: strings.py:21
+msgid "May"
+msgstr "Mayo"
+
+#: strings.py:22
+msgid "June"
+msgstr "Hunyo"
+
+#: strings.py:23
+msgid "July"
+msgstr "Hulyo"
+
+#: strings.py:24
+msgid "August"
+msgstr "Agosto"
+
+#: strings.py:25
+msgid "September"
+msgstr "Setyembre"
+
+#: strings.py:26
+msgid "October"
+msgstr "Oktubre"
+
+#: strings.py:27
+msgid "November"
+msgstr "Nobyembre"
+
+#: strings.py:28
+msgid "December"
+msgstr "Disyembre"
+
+#: strings.py:32
+msgid "Mo"
+msgstr "Lu"
+
+#: strings.py:33
+msgid "Tu"
+msgstr "Ma"
+
+#: strings.py:34
+msgid "We"
+msgstr "Mi"
+
+#: strings.py:35
+msgid "Th"
+msgstr "Hu"
+
+#: strings.py:36
+msgid "Fr"
+msgstr "Bi"
+
+#: strings.py:37
+msgid "Sa"
+msgstr "Sa"
+
+#: strings.py:38
+msgid "Su"
+msgstr "Li"
+
+#: strings.py:42
+msgid "About..."
+msgstr "Tungkol"
+
+#: strings.py:43
+#, python-brace-format
+msgid "{0} was made by {1} for the Kivy App Contest 2014."
+msgstr "Ang {0} ay ginawa {1} para sa Kivy App Contest 2014"
+
+#: strings.py:47
+msgid "Name"
+msgstr "Pangalan"
+
+#: strings.py:48
+msgid "Name of the course"
+msgstr "Pangalan ng kurso"
+
+#: strings.py:49
+msgid "Abbreviation"
+msgstr "Daglat"
+
+#: strings.py:50
+msgid "Abbreviation of the course"
+msgstr "Daglat ng kurso"
+
+#: strings.py:51
+msgid "Colour"
+msgstr "Kulay"
+
+#: strings.py:52
+msgid "Colour of the course"
+msgstr "Kulay ng kurso"
+
+#: strings.py:53
+msgid "Active"
+msgstr "Aktibo"
+
+#: strings.py:54
+msgid "Is the course active"
+msgstr "Aktibo pa ba ang kursu"
+
+#: strings.py:58
+msgid "Yesterday"
+msgstr "Kahapon"
+
+#: strings.py:59
+msgid "Today"
+msgstr "Ngayon"
+
+#: strings.py:60
+msgid "Tomorrow"
+msgstr "Bukas"
+
+#: strings.py:64
+msgid "homework"
+msgstr "takdang-aralin"
+
+#: strings.py:65
+msgid "schedule"
+msgstr "talakdaan"
+
+#: strings.py:66
+msgid "courses"
+msgstr "kurso"
+
+#: strings.py:67
+msgid "synchronise"
+msgstr "Magkapanabay"
+
+#: strings.py:68
+msgid "personal organizer"
+msgstr "pangsariling organizer"
+
+#: strings.py:69
+msgid "settings"
+msgstr "settings"
+
+#: strings.py:70
+msgid "close"
+msgstr "Isara"
+
+#: strings.py:71
+msgid "lesson"
+msgstr "leksiyon"
