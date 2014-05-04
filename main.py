@@ -10,8 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.dropdown import DropDown
 from kivy.uix.popup import Popup
-from kivy.uix.settings import InterfaceWithSidebar
-from kivy.uix.widget import Widget
+from kivy.uix.settings import InterfaceWithSpinner
 
 try:
     import cProfile
@@ -23,24 +22,29 @@ import datetime
 import gettext
 from os import path
 
+from agenda import AgendaLayout
 from datepicker import DatePicker
+from debug import DebugTools
 from settings import CustomSettings
 from strings import TextData, get_locale, list_translations, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
+__version__ = '0.1'
 
 base_path = path.dirname(__file__)
 
+debug = DebugTools()
+
 config_settings = ConfigParser()
 config_settings.read(path.join(path.join(base_path, 'config'), 'autiagenda.ini'))
-settings = CustomSettings(interface_cls=InterfaceWithSidebar)
+settings = CustomSettings(interface_cls=InterfaceWithSpinner)
 # settings.add_json_panel('Date / Time', config, 'datetime.json')
 # TODO: Add settings / config later
 
 config_courses = ConfigParser()
 config_courses.read(path.join(path.join(base_path, 'config'), 'courses.ini'))
-courses = CustomSettings(interface_cls=InterfaceWithSidebar)
+courses = CustomSettings(interface_cls=InterfaceWithSpinner)
 courses.add_json_panel('Course 1', config_courses, path.join(path.join(base_path, 'config'), 'courses.json'))
 
 Factory.register('DatePicker', DatePicker)
@@ -55,20 +59,20 @@ available_translations = list_translations()
 translations = {}
 for translation in available_translations:
     if gettext.find(domain, locale_directory, languages=[translation], all=1) is not None:
-        print(gettext.find(domain, locale_directory, languages=[translation], all=1))
         translations[translation] = gettext.translation(domain, localedir=locale_directory, languages=[translation])
-print(translations)
 
 strings = TextData()
 
 
-class Agenda(Widget):
+class Agenda(BoxLayout):
+    agenda_layout = ObjectProperty(None)
+
     selected_day_button = Button()
     selected_date = datetime.datetime(datetime.datetime.today().year, datetime.datetime.today().month,
                                       datetime.datetime.today().day)  # TODO: Reformat this... :+
     selected_day_text = StringProperty('Today')
 
-    about_popup = Popup(size_hint=(0.3, 0.5), auto_dismiss=False)
+    about_popup = Popup(size_hint=(0.6, 0.5), auto_dismiss=False)
     sync_dialog = Popup(size_hint=(0.7, 0.6), auto_dismiss=False)
     settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
     courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), content=courses,
@@ -98,6 +102,9 @@ class Agenda(Widget):
         self.courses_settings.set_self_awareness(self.courses_popup)
         self.courses_popup.content = self.courses_settings
 
+        # self.agenda_layout = AgendaLayout()
+        # self.add_widget(self.agenda_layout)
+
     def open_settings_dialog(self):
         self.settings_popup.open()
         self.top_menu_more.dismiss()
@@ -123,15 +130,15 @@ class Agenda(Widget):
 
     def display_next_day(self):
         self.selected_date += datetime.timedelta(days=1)
-        self.selected_day_button.text = self.format_selected_date()
+        self.selected_day_text = self.format_selected_date()
 
     def display_prev_day(self):
         self.selected_date -= datetime.timedelta(days=1)
-        self.selected_day_button.text = self.format_selected_date()
+        self.selected_day_text = self.format_selected_date()
 
     def new_activity(self):
         print('Installing translations...')
-        translations['es'].install(unicode=True)
+        translations['ta'].install(unicode=True)
 
     def open_top_menu_more(self, root):
         self.top_menu_more.on_translation()
@@ -151,7 +158,8 @@ class Agenda(Widget):
         elif self.selected_date == tomorrow:
             return _(strings.date_name['tomorrow'])
         else:
-            return self.selected_date.strftime('%d-%m %Y')
+            month = _(strings.months[int(self.selected_date.strftime('%m'))])
+            return self.selected_date.strftime('%d {} %Y'.format(month))
 
 
 class AgendaTopMenuDropDown(DropDown):
@@ -213,12 +221,12 @@ class SyncDialog(BoxLayout):
 
 
 class AgendaApp(App):
-    def __init__(self, debug=False):
+    def __init__(self, debug_mode=False):
         super(AgendaApp, self).__init__()
 
         self.window = None
         self.profile = None
-        self.debug = debug
+        self.debug = debug_mode
 
         self.strings = strings
 

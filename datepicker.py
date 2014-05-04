@@ -8,8 +8,13 @@ from kivy.uix.label import Label
 
 import calendar
 import datetime
+import gettext
+
+from strings import TextData
 
 __author__ = 'Rob Derksen (boisei0)'
+
+strings = TextData()
 
 
 class DatePicker(BoxLayout):
@@ -21,8 +26,8 @@ class DatePicker(BoxLayout):
         super(DatePicker, self).__init__(**kwargs)
 
         self.orientation = 'vertical'
-        self.canvas.add(Color(0.81, 0.81, 0.81))
-        self.canvas.add(Rectangle(pos=[self.center_x, self.center_y], size=[self.width, self.height]))
+        # self.canvas.add(Color(0.81, 0.81, 0.81))
+        # self.canvas.add(Rectangle(pos=[self.center_x, self.center_y], size=[self.width, self.height]))
 
         top_row = BoxLayout(size_hint_y=None, height=(self.height / 3))
 
@@ -31,12 +36,10 @@ class DatePicker(BoxLayout):
         self.selected_day = int(selected_day)
 
         self.prev_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='<-', bold=True)
-        # self.prev_month_button.background_normal = 'res/drawable-mdpi/ic_find_previous_holo_dark.png'
-        # self.prev_month_button.background_down = 'res/drawable-mdpi/ic_find_previous_holo_light.png'
         self.prev_month_button.bind(on_release=self.on_prev_month)
         top_row.add_widget(self.prev_month_button)
 
-        self.selected_month_label = Label(text='{} {}'.format(self.get_month_name(self.selected_month),
+        self.selected_month_label = Label(text='{} {}'.format(_(strings.months[self.selected_month]),
                                                               self.selected_year), size_hint_x=0.3)
         top_row.add_widget(self.selected_month_label)
 
@@ -72,27 +75,13 @@ class DatePicker(BoxLayout):
     def _update_view(self):
         self.day_picker.set_year(self.selected_year)
         self.day_picker.set_month(self.selected_month)
-        self.selected_month_label.text = '{} {}'.format(self.get_month_name(self.selected_month), self.selected_year)
+        self.selected_month_label.text = '{} {}'.format(_(strings.months[self.selected_month]), self.selected_year)
         self.day_picker.update()
 
-    @staticmethod
-    def get_month_name(month):
-        months = [
-            '',
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'Juli',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-        ]
-        return months[month]
+    def on_translate(self):
+        self.remove_widget(self.day_picker)
+        self.day_picker = DayPicker(self.selected_month, self.selected_year, self.selected_day)
+        self.add_widget(self.day_picker)
 
 
 class DayPicker(BoxLayout):
@@ -155,13 +144,8 @@ class DayPicker(BoxLayout):
 
     def _get_header(self):
         widget = BoxLayout(size_hint_y=None, height=(self.height / 4))
-        widget.add_widget(Label(text='Mo'))
-        widget.add_widget(Label(text='Tu'))
-        widget.add_widget(Label(text='We'))
-        widget.add_widget(Label(text='Th'))
-        widget.add_widget(Label(text='Fr'))
-        widget.add_widget(Label(text='Sa'))
-        widget.add_widget(Label(text='Su'))
+        for i in range(1, 8):
+            widget.add_widget(Label(text=_(strings.weekdays_abbr[i])))
         return widget
 
     def _select_date(self, instance):
