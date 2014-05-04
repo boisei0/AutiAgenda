@@ -64,7 +64,7 @@ for translation in available_translations:
 strings = TextData()
 
 
-class Agenda(BoxLayout):
+class AgendaCore(BoxLayout):
     agenda_layout = ObjectProperty(None)
 
     selected_day_button = Button()
@@ -79,7 +79,7 @@ class Agenda(BoxLayout):
                           auto_dismiss=False)
 
     def __init__(self, app, **kwargs):
-        super(Agenda, self).__init__(**kwargs)
+        super(AgendaCore, self).__init__(**kwargs)
 
         self.app = app
 
@@ -237,7 +237,7 @@ class AgendaApp(App):
         self.window = EventLoop.window
         self.title = __appname__
 
-        return Agenda(self)
+        return AgendaCore(self)
 
     def on_start(self):
         if self.debug and profiler_loaded:

@@ -2,7 +2,7 @@
 #:import DatePicker datepicker.DatePicker
 #:import cfl strings.cap_first_letter
 
-<Agenda>:
+<AgendaCore>:
     orientation: 'vertical'
     canvas:
         Color:
@@ -12,6 +12,7 @@
             size: self.size
 
     BoxLayout:
+        id: header_box_layout
         orientation: 'horizontal'
         size_hint_y: None
         height: app.window.width / 7 
@@ -44,7 +45,7 @@
             size: app.window.width / 7 * 2, app.window.width / 7
             #right: app.window.width - (app.window.width / 7 * 3)
             #top: app.window.height
-            on_release: root.selected_date_dropdown.open(self)
+            on_release: root.selected_date_dropdown.open(prev_day_button)
 
         Button:
             id: next_day_button
@@ -144,6 +145,12 @@
 <SelectedDateDropDown>:
     width: app.window.width / 2
     x: app.window.width / 7
+    canvas:
+        Color:
+            rgba: (0.84, 0.84, 0.84, 1.0)
+        Rectangle:
+            pos: self.pos
+            size: [app.window.width / 2, app.window.height / 2]
 
     DatePicker:
         root_app: app

@@ -39,8 +39,9 @@ class DatePicker(BoxLayout):
         self.prev_month_button.bind(on_release=self.on_prev_month)
         top_row.add_widget(self.prev_month_button)
 
-        self.selected_month_label = Label(text='{} {}'.format(_(strings.months[self.selected_month]),
-                                                              self.selected_year), size_hint_x=0.3)
+        self.selected_month_label = Label(text='[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
+                                                                                                     self.selected_year),
+                                          size_hint_x=0.3, markup=True)
         top_row.add_widget(self.selected_month_label)
 
         self.next_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='->', bold=True)
@@ -75,7 +76,8 @@ class DatePicker(BoxLayout):
     def _update_view(self):
         self.day_picker.set_year(self.selected_year)
         self.day_picker.set_month(self.selected_month)
-        self.selected_month_label.text = '{} {}'.format(_(strings.months[self.selected_month]), self.selected_year)
+        self.selected_month_label.text = '[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
+                                                                              self.selected_year)
         self.day_picker.update()
 
     def on_translate(self):
@@ -145,7 +147,7 @@ class DayPicker(BoxLayout):
     def _get_header(self):
         widget = BoxLayout(size_hint_y=None, height=(self.height / 4))
         for i in range(1, 8):
-            widget.add_widget(Label(text=_(strings.weekdays_abbr[i])))
+            widget.add_widget(Label(text='[color=303030]{}[/color]'.format(_(strings.weekdays_abbr[i])), markup=True))
         return widget
 
     def _select_date(self, instance):
