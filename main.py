@@ -22,7 +22,6 @@ import datetime
 import gettext
 from os import path
 
-from agendalayout import AgendaLayout
 from datepicker import DatePicker
 from debug import DebugTools
 from settings import CustomSettings, JSONData
@@ -82,8 +81,9 @@ class AgendaCore(BoxLayout):
 
     about_popup = Popup(size_hint=(0.6, 0.5), auto_dismiss=False)
     sync_dialog = Popup(size_hint=(0.7, 0.6), auto_dismiss=False)
-    settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
-    courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), auto_dismiss=False)
+    settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.95, 0.7),
+                           auto_dismiss=False)
+    courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.95, 0.7), auto_dismiss=False)
 
     def __init__(self, app, **kwargs):
         super(AgendaCore, self).__init__(**kwargs)
@@ -150,7 +150,7 @@ class AgendaCore(BoxLayout):
         self.selected_date_dropdown.ids['date_picker'].__self__.on_translate()
 
         # override defaults
-        self.courses_popup = Popup(title=cap_first_letter(_(strings.text['courses'])), size_hint=(0.8, 0.7),
+        self.courses_popup = Popup(title=cap_first_letter(_(strings.text['courses'])), size_hint=(0.95, 0.7),
                                    auto_dismiss=False)
 
         self.courses_popup.attach_to = self

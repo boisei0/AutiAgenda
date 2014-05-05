@@ -1,13 +1,16 @@
 import kivy
 kivy.require('1.8.0')
 
+from kivy.app import App
 from kivy.properties import ListProperty, ObjectProperty
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.popup import Popup
-from kivy.uix.settings import Settings, SettingItem, SettingSpacer
+from kivy.uix.settings import Settings, SettingItem, SettingSpacer, SettingString
+from kivy.uix.textinput import TextInput
+from kivy.uix.widget import Widget
 
 from dbhandler import DBHandler
 from strings import TextData
@@ -18,10 +21,12 @@ strings = TextData()
 
 
 class CustomSettings(Settings):
+    self_awareness = ObjectProperty(None)
+
     def __init__(self, *args, **kwargs):
         super(CustomSettings, self).__init__(*args, **kwargs)
-        self.self_awareness = None
         self.register_type('color', SettingColor)
+        self.register_type('dynstring', DynamicStringSetting)
 
     def on_close(self):
         self.self_awareness.dismiss()
@@ -55,17 +60,14 @@ class SettingColor(SettingItem):
         self.value = self.color_store
 
     def _create_popup(self, instance):
+        app = App.get_running_app()
         # create popup layout
         content = BoxLayout(orientation='vertical', spacing='5dp')
-        self.popup = popup = Popup(
-            title=self.title, content=content, size_hint=(None, None),
-            size=('500dp', '400dp')
-        )
+        self.popup = popup = Popup(title=self.title, content=content, size_hint=(None, None),
+                                   size=(app.window.width * .9, app.window.height * .9))
 
         # create the colorpicker used for color input
-        self.color_picker = color_picker = ColorPicker(
-            text=self.value, font_size='24sp', multiline=False,
-        )
+        self.color_picker = color_picker = ColorPicker(text=self.value, font_size='24sp', multiline=False)
         color_picker.bind(color=self._on_color)
         self.color_picker = color_picker
 
@@ -74,7 +76,41 @@ class SettingColor(SettingItem):
         content.add_widget(SettingSpacer())
 
         # 2 buttons are created for accept or cancel the current value
-        button_layout = BoxLayout(size_hint_y=None, height='50dp', spacing='5dp')
+        button_layout = BoxLayout(size_hint_y=None, height=app.window.height * .075, spacing=app.window.height * .025)
+        btn = Button(text='Ok')
+        btn.bind(on_release=self._validate)
+        button_layout.add_widget(btn)
+        btn = Button(text='Cancel')
+        btn.bind(on_release=self._dismiss)
+        button_layout.add_widget(btn)
+        content.add_widget(button_layout)
+
+        # all done, open the popup !
+        popup.open()
+
+
+class DynamicStringSetting(SettingString):
+    def _create_popup(self, instance):
+        app = App.get_running_app()
+        # create popup layout
+        content = BoxLayout(orientation='vertical', spacing='5dp')
+        self.popup = popup = Popup(title=self.title, content=content, size_hint=(None, None),
+                                   size=(app.window.width * .6, app.window.height * .3))
+
+        # create the textinput used for numeric input
+        self.textinput = textinput = TextInput(text=self.value, font_size='24sp', multiline=False, size_hint_y=None,
+                                               height='42sp')
+        textinput.bind(on_text_validate=self._validate)
+        self.textinput = textinput
+
+        # construct the content, widget are used as a spacer
+        content.add_widget(Widget())
+        content.add_widget(textinput)
+        content.add_widget(Widget())
+        content.add_widget(SettingSpacer())
+
+        # 2 buttons are created for accept or cancel the current value
+        button_layout = BoxLayout(size_hint_y=None, height=app.window.height * .075, spacing=app.window.height * .025)
         btn = Button(text='Ok')
         btn.bind(on_release=self._validate)
         button_layout.add_widget(btn)
@@ -97,13 +133,13 @@ class JSONData:
             return '[]'
         json = '['
         for i in range(no_courses):
-            json += '{{"type": "string", ' \
+            json += '{{"type": "dynstring", ' \
                     u'"title": "{}", ' \
                     u'"desc": "{}", ' \
                     '"section": "course{}", ' \
                     '"key": "name" ' \
                     '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), i)
-            json += '{{"type": "string", ' \
+            json += '{{"type": "dynstring", ' \
                     u'"title": "{}", ' \
                     u'"desc": "{}", ' \
                     '"section": "course{}", ' \
