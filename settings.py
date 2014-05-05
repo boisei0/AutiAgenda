@@ -9,7 +9,12 @@ from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.popup import Popup
 from kivy.uix.settings import Settings, SettingItem, SettingSpacer
 
+from dbhandler import DBHandler
+from strings import TextData
+
 __author__ = 'Rob Derksen (boisei0)'
+
+strings = TextData()
 
 
 class CustomSettings(Settings):
@@ -80,3 +85,41 @@ class SettingColor(SettingItem):
 
         # all done, open the popup !
         popup.open()
+
+
+class JSONData:
+    def __init__(self):
+        self.dbh = DBHandler()
+
+    def get_courses_json(self):
+        no_courses = self.dbh.get_no_courses()
+        if no_courses == 0:
+            return '[]'
+        json = '['
+        for i in range(no_courses):
+            json += '{{"type": "string", ' \
+                    u'"title": "{}", ' \
+                    u'"desc": "{}", ' \
+                    '"section": "course{}", ' \
+                    '"key": "name" ' \
+                    '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), i)
+            json += '{{"type": "string", ' \
+                    u'"title": "{}", ' \
+                    u'"desc": "{}", ' \
+                    '"section": "course{}", ' \
+                    '"key": "abbr"' \
+                    '}},'.format(_(strings.courses_dialog['abbr_title']), _(strings.courses_dialog['abbr_descr']), i)
+            json += '{{"type": "color", ' \
+                    u'"title": "{}", ' \
+                    u'"desc": "{}", ' \
+                    '"section": "course{}", ' \
+                    '"key": "color"' \
+                    '}},'.format(_(strings.courses_dialog['col_title']), _(strings.courses_dialog['col_descr']), i)
+            json += '{{"type": "bool", ' \
+                    u'"title": "{}", ' \
+                    u'"desc": "{}", ' \
+                    '"section": "course{}", ' \
+                    '"key": "active"' \
+                    '}}'.format(_(strings.courses_dialog['active_title']), _(strings.courses_dialog['active_descr']), i)
+        json += ']'
+        return json

@@ -2,6 +2,7 @@ import kivy
 kivy.require('1.8.0')
 
 from kivy.graphics import Color, Rectangle
+from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -18,7 +19,7 @@ strings = TextData()
 
 
 class DatePicker(BoxLayout):
-    root_app = None
+    root_app = ObjectProperty(None)
 
     def __init__(self, selected_month=datetime.datetime.today().strftime('%m'),
                  selected_year=datetime.datetime.today().strftime('%Y'),
@@ -35,16 +36,16 @@ class DatePicker(BoxLayout):
         self.selected_year = int(selected_year)
         self.selected_day = int(selected_day)
 
-        self.prev_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='<-', bold=True)
+        self.prev_month_button = Button(size_hint_x=0.2, size_hint_y=None, height=(self.width / 3), text='<-', bold=True)
         self.prev_month_button.bind(on_release=self.on_prev_month)
         top_row.add_widget(self.prev_month_button)
 
-        self.selected_month_label = Label(text='[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
-                                                                                                     self.selected_year),
-                                          size_hint_x=0.3, markup=True)
+        self.selected_month_label = Label(text=u'[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
+                                                                                     self.selected_year),
+                                          size_hint_x=0.6, markup=True)
         top_row.add_widget(self.selected_month_label)
 
-        self.next_month_button = Button(size_hint_x=0.3, size_hint_y=None, height=(self.width / 3), text='->', bold=True)
+        self.next_month_button = Button(size_hint_x=0.2, size_hint_y=None, height=(self.width / 3), text='->', bold=True)
         # self.next_month_button.background_normal = 'res/drawable-mdpi/ic_find_next_holo_dark.png'
         # self.next_month_button.background_down = 'res/drawable-mdpi/ic_find_next_holo_light.png'
         self.next_month_button.bind(on_release=self.on_next_month)
@@ -76,8 +77,8 @@ class DatePicker(BoxLayout):
     def _update_view(self):
         self.day_picker.set_year(self.selected_year)
         self.day_picker.set_month(self.selected_month)
-        self.selected_month_label.text = '[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
-                                                                              self.selected_year)
+        self.selected_month_label.text = u'[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
+                                                                               self.selected_year)
         self.day_picker.update()
 
     def on_translate(self):
@@ -137,7 +138,7 @@ class DayPicker(BoxLayout):
             week = BoxLayout(spacing=2)
             for ii in range(7):
                 if not isinstance(list_month[i][ii], datetime.date):
-                    week.add_widget(Label(text=str(int(list_month[i][ii]))))
+                    week.add_widget(Label(text=u'[color=303030]{}[/color]'.format(int(list_month[i][ii])), markup=True))
                 else:
                     week.add_widget(Button(text=str(int(list_month[i][ii].strftime('%d'))),
                                            on_release=self._select_date))
@@ -147,7 +148,7 @@ class DayPicker(BoxLayout):
     def _get_header(self):
         widget = BoxLayout(size_hint_y=None, height=(self.height / 4))
         for i in range(1, 8):
-            widget.add_widget(Label(text='[color=303030]{}[/color]'.format(_(strings.weekdays_abbr[i])), markup=True))
+            widget.add_widget(Label(text=u'[color=303030][b]{}[/b][/color]'.format(_(strings.weekdays_abbr[i])), markup=True))
         return widget
 
     def _select_date(self, instance):

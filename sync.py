@@ -4,7 +4,7 @@ import os
 
 __author__ = 'Rob Derksen (boisei0)'
 
-base_path = os.path.dirname(__file__)
+base_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class Sync:
@@ -51,7 +51,7 @@ class Sync:
         for path in files_list:
             with open(path, 'rb') as f:
                 if base_path in path:
-                    path = path[len(base_path) + 1:]
+                    path = path[len(base_path) + 1:].replace('\\\\', '/').replace('\\', '/').replace('//', '/')
                 self.client.put_file('/{}'.format(path), f)
 
     def sync_from_dropbox(self, files_list):

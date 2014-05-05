@@ -19,12 +19,12 @@ class AgendaLayout(BoxLayout):
         self.orientation = 'vertical'
         self.widgets = 0
         self.size_hint_y = None
-        self.height = 1200
+        self.height = 2300
 
         self._draw_background()
 
         for i in range(30):
-            self.add_widget(Button(text=str(i), size_hint_y=None, height=40, size_hint_x=.2))
+            self.add_widget(Button(text=str(i), size_hint_y=None, height='2cm', size_hint_x=.2))
 
     def _draw_background(self):
         with self.canvas:

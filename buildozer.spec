@@ -7,13 +7,14 @@ title = AutiAgenda
 package.name = autiagenda
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.boisei0.autiagenda
+package.domain = org.boisei0
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,txt,po,mo
+# WARNING: REMOVE db AND pkl FROM THIS LIST BEFORE RELEASE !!!
+source.include_exts = py,png,jpg,kv,atlas,txt,po,mo,ini,json,db,pkl
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec,pyc,pyo
@@ -32,7 +33,7 @@ source.include_exts = py,png,jpg,kv,atlas,txt,po,mo
 version = 0.1
 
 # (list) Application requirements
-requirements = kivy
+requirements = sqlite3,kivy
 
 # (list) Garden requirements
 #garden_requirements =

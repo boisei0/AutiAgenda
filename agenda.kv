@@ -1,4 +1,4 @@
-#:import AgendaLayout agenda.AgendaLayout
+#:import AgendaLayout agendalayout.AgendaLayout
 #:import DatePicker datepicker.DatePicker
 #:import cfl strings.cap_first_letter
 
@@ -19,10 +19,8 @@
 
         Image:
             id: logo
-            source: '/res/logo.png'
+            source: 'res/logo.png'
             size_x: app.window.width / 7
-            #left: 0
-            #top: app.window.height
             keep_ratio: True
             allow_stretch: True
 
@@ -30,8 +28,6 @@
             id: prev_day_button
             text: ''
             size: app.window.width / 7, app.window.width / 7
-            #right: app.window.width - (app.window.width / 7 * 5)
-            #top: app.window.height
             on_release: root.display_prev_day()
             Image:
                 source: 'res/drawable-mdpi/ic_find_previous_holo_light.png'
@@ -43,16 +39,12 @@
             id: selected_day_button
             text: root.selected_day_text
             size: app.window.width / 7 * 2, app.window.width / 7
-            #right: app.window.width - (app.window.width / 7 * 3)
-            #top: app.window.height
             on_release: root.selected_date_dropdown.open(prev_day_button)
 
         Button:
             id: next_day_button
             text: ''
             size: app.window.width / 7, app.window.width / 7
-            #right: app.window.width - (app.window.width / 7 * 2)
-            #top: app.window.height
             on_release: root.display_next_day()
             Image:
                 source: 'res/drawable-mdpi/ic_find_next_holo_light.png'
@@ -64,8 +56,6 @@
             id: new_activity_button
             text: ''
             size: app.window.width / 7, app.window.width / 7
-            #right: app.window.width - (app.window.width / 7)
-            #top: app.window.height
             on_release: root.new_activity()
             Image:
                 source: 'res/drawable-mdpi/ic_input_add.png'
@@ -76,11 +66,7 @@
         Button:
             id: more_button
             text: ''
-            #background_normal: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
-            #background_down: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
             size: app.window.width / 7, app.window.width / 7
-            #right: app.window.width
-            #top: app.window.height
             on_release: root.open_top_menu_more(self)
             Image:
                 source: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
@@ -107,7 +93,7 @@
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
-        on_release: root.app.display_courses()
+        on_release: root.core.display_courses()
 
     Button:
         id: schedule_button
@@ -115,7 +101,7 @@
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
-        on_release: root.app.display_schedule()
+        on_release: root.core.display_schedule()
 
     Button:
         id: sync_button
@@ -123,7 +109,7 @@
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
-        on_release: root.app.sync_all()
+        on_release: root.core.sync_all()
 
     Button:
         id: about_button
@@ -131,7 +117,7 @@
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
-        on_release: root.app.display_about()
+        on_release: root.core.display_about()
 
     Button:
         id: settings_button
@@ -139,21 +125,19 @@
         size_hint_y: None
         width: app.window.width / 4
         height: app.window.height / 10
-        on_release: root.app.open_settings_dialog()
+        on_release: root.core.open_settings_dialog()
 
 
 <SelectedDateDropDown>:
-    width: app.window.width / 2
-    x: app.window.width / 7
+    width: app.window.width / 7 * 4
     canvas:
         Color:
             rgba: (0.84, 0.84, 0.84, 1.0)
         Rectangle:
             pos: self.pos
-            size: [app.window.width / 2, app.window.height / 2]
+            size: [app.window.width / 7 * 4, app.window.height / 2]
 
     DatePicker:
-        root_app: app
         id: date_picker
         size_hint_y: None
         height: app.window.height / 2

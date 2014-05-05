@@ -22,35 +22,38 @@ import datetime
 import gettext
 from os import path
 
-from agenda import AgendaLayout
+from agendalayout import AgendaLayout
 from datepicker import DatePicker
 from debug import DebugTools
-from settings import CustomSettings
+from settings import CustomSettings, JSONData
 from strings import TextData, get_locale, list_translations, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
 __version__ = '0.1'
 
-base_path = path.dirname(__file__)
+base_path = path.dirname(path.abspath(__file__))
 
 debug = DebugTools()
 
 config_settings = ConfigParser()
-config_settings.read(path.join(path.join(base_path, 'config'), 'autiagenda.ini'))
+config_settings.read(path.join(base_path, 'config', 'autiagenda.ini'))
 settings = CustomSettings(interface_cls=InterfaceWithSpinner)
 # settings.add_json_panel('Date / Time', config, 'datetime.json')
 # TODO: Add settings / config later
 
 config_courses = ConfigParser()
-config_courses.read(path.join(path.join(base_path, 'config'), 'courses.ini'))
+config_courses.read(path.join(base_path, 'config', 'courses.ini'))
 courses = CustomSettings(interface_cls=InterfaceWithSpinner)
-courses.add_json_panel('Course 1', config_courses, path.join(path.join(base_path, 'config'), 'courses.json'))
+if kivy.app.platform == 'win' or kivy.app.platform == 'android':
+    courses.add_json_panel('Course 1', config_courses, path.join(base_path, 'config', 'courses.json'))
+else:
+    courses.add_json_panel('Course 1', config_courses, path.join('config', 'courses.json'))
 
 Factory.register('DatePicker', DatePicker)
 
 domain = 'agenda'
-locale_directory = path.dirname(path.abspath(__file__)) + "/locale"
+locale_directory = base_path + "/locale"
 gettext.bindtextdomain(domain, locale_directory)
 gettext.textdomain(domain)
 gettext.install(domain, localedir=locale_directory, unicode=True)
@@ -61,22 +64,26 @@ for translation in available_translations:
     if gettext.find(domain, locale_directory, languages=[translation], all=1) is not None:
         translations[translation] = gettext.translation(domain, localedir=locale_directory, languages=[translation])
 
+system_locale = get_locale()
+if system_locale != 'en' and system_locale in translations.keys():
+    translations[system_locale].install()
+
 strings = TextData()
+json_data = JSONData()
 
 
 class AgendaCore(BoxLayout):
     agenda_layout = ObjectProperty(None)
 
     selected_day_button = Button()
-    selected_date = datetime.datetime(datetime.datetime.today().year, datetime.datetime.today().month,
-                                      datetime.datetime.today().day)  # TODO: Reformat this... :+
+    today = datetime.datetime.today()
+    selected_date = datetime.datetime(today.year, today.month, today.day)
     selected_day_text = StringProperty('Today')
 
     about_popup = Popup(size_hint=(0.6, 0.5), auto_dismiss=False)
     sync_dialog = Popup(size_hint=(0.7, 0.6), auto_dismiss=False)
     settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.8, 0.7), auto_dismiss=False)
-    courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), content=courses,
-                          auto_dismiss=False)
+    courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.8, 0.7), auto_dismiss=False)
 
     def __init__(self, app, **kwargs):
         super(AgendaCore, self).__init__(**kwargs)
@@ -84,7 +91,7 @@ class AgendaCore(BoxLayout):
         self.app = app
 
         self.top_menu_more = AgendaTopMenuDropDown(self)
-        self.selected_date_dropdown = SelectedDateDropDown(self)
+        self.selected_date_dropdown = SelectedDateDropDown()
 
         self.about_popup.attach_to = self
         self.about_popup.content = AboutDialog(root=self)
@@ -101,9 +108,6 @@ class AgendaCore(BoxLayout):
         self.courses_settings = courses
         self.courses_settings.set_self_awareness(self.courses_popup)
         self.courses_popup.content = self.courses_settings
-
-        # self.agenda_layout = AgendaLayout()
-        # self.add_widget(self.agenda_layout)
 
     def open_settings_dialog(self):
         self.settings_popup.open()
@@ -138,7 +142,24 @@ class AgendaCore(BoxLayout):
 
     def new_activity(self):
         print('Installing translations...')
-        translations['ta'].install(unicode=True)
+        translations['se'].install(unicode=True)
+
+        self._on_translate()
+
+    def _on_translate(self):
+        self.selected_date_dropdown.ids['date_picker'].__self__.on_translate()
+
+        # override defaults
+        self.courses_popup = Popup(title=cap_first_letter(_(strings.text['courses'])), size_hint=(0.8, 0.7),
+                                   auto_dismiss=False)
+
+        self.courses_popup.attach_to = self
+        self.courses_settings = CustomSettings(interface_cls=InterfaceWithSpinner)
+        self.courses_settings.set_self_awareness(self.courses_popup)
+
+        self.courses_settings.add_json_panel(cap_first_letter(_(strings.text['courses'])), config_courses,
+                                             data=json_data.get_courses_json())
+        self.courses_popup.content = self.courses_settings
 
     def open_top_menu_more(self, root):
         self.top_menu_more.on_translation()
@@ -159,7 +180,7 @@ class AgendaCore(BoxLayout):
             return _(strings.date_name['tomorrow'])
         else:
             month = _(strings.months[int(self.selected_date.strftime('%m'))])
-            return self.selected_date.strftime('%d {} %Y'.format(month))
+            return self.selected_date.strftime(u'%d {} %Y'.format(month))
 
 
 class AgendaTopMenuDropDown(DropDown):
@@ -169,12 +190,12 @@ class AgendaTopMenuDropDown(DropDown):
     about_text = StringProperty(cap_first_letter(_(strings.about['title'])))
     settings_text = StringProperty(cap_first_letter(_(strings.text['settings'])))
 
-    def __init__(self, app):
+    def __init__(self, core):
         super(AgendaTopMenuDropDown, self).__init__()
 
         self.auto_width = False
 
-        self.app = app
+        self.core = core
 
     def on_translation(self):
         self.courses_text = cap_first_letter(_(strings.text['courses']))
@@ -185,12 +206,10 @@ class AgendaTopMenuDropDown(DropDown):
 
 
 class SelectedDateDropDown(DropDown):
-    def __init__(self, app):
+    def __init__(self):
         super(SelectedDateDropDown, self).__init__()
 
         self.auto_width = False
-
-        self.app = app
 
 
 class AboutDialog(BoxLayout):
