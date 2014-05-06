@@ -103,12 +103,10 @@ class AgendaCore(BoxLayout):
 
         self.settings_popup.attach_to = self
         self.settings = settings
-        self.settings.set_self_awareness(self.settings_popup)
         self.settings_popup.content = self.settings
 
         self.courses_popup.attach_to = self
         self.courses_settings = courses
-        self.courses_settings.set_self_awareness(self.courses_popup)
         self.courses_popup.content = self.courses_settings
 
     def open_settings_dialog(self):
@@ -157,7 +155,6 @@ class AgendaCore(BoxLayout):
 
         self.courses_popup.attach_to = self
         self.courses_settings = CustomSettings(interface_cls=InterfaceWithSpinner)
-        self.courses_settings.set_self_awareness(self.courses_popup)
 
         for course_id in range(dbh.get_no_courses()):
             json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
@@ -282,4 +279,4 @@ class AgendaApp(App):
 
 
 if __name__ == '__main__':
-    AgendaApp().run()
+    AgendaApp(debug_mode=True).run()

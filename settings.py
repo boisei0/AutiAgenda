@@ -17,11 +17,11 @@ from strings import TextData
 
 __author__ = 'Rob Derksen (boisei0)'
 
+dbh = DBHandler()
 strings = TextData()
 
 
 class CustomSettings(Settings):
-    self_awareness = ObjectProperty(None)
 
     def __init__(self, *args, **kwargs):
         super(CustomSettings, self).__init__(*args, **kwargs)
@@ -29,10 +29,9 @@ class CustomSettings(Settings):
         self.register_type('dynstring', DynamicStringSetting)
 
     def on_close(self):
-        self.self_awareness.dismiss()
-
-    def set_self_awareness(self, self_awareness_object):
-        self.self_awareness = self_awareness_object
+        dbh.courses_ini_to_db()
+        self.parent.parent.parent.attach_to.ids['agenda_layout'].__self__.on_update()
+        self.parent.parent.parent.dismiss()
 
 
 class SettingColor(SettingItem):
@@ -125,10 +124,10 @@ class DynamicStringSetting(SettingString):
 
 class JSONData:
     def __init__(self):
-        self.dbh = DBHandler()
+        pass
 
     def get_full_courses_json(self):
-        no_courses = self.dbh.get_no_courses()
+        no_courses = dbh.get_no_courses()
         if no_courses == 0:
             return '[]'
         json = '['

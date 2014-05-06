@@ -4,18 +4,18 @@
 
 <AgendaCore>:
     orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: (0.71, 0.71, 0.71, 1.0)
-        Rectangle:
-            pos: self.pos
-            size: self.size
 
     BoxLayout:
         id: header_box_layout
         orientation: 'horizontal'
         size_hint_y: None
-        height: app.window.width / 7 
+        height: app.window.width / 7
+        canvas:
+            Color:
+                rgba: (0.71, 0.71, 0.71, 1.0)
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
         Image:
             id: logo
