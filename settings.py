@@ -127,35 +127,42 @@ class JSONData:
     def __init__(self):
         self.dbh = DBHandler()
 
-    def get_courses_json(self):
+    def get_full_courses_json(self):
         no_courses = self.dbh.get_no_courses()
         if no_courses == 0:
             return '[]'
         json = '['
         for i in range(no_courses):
-            json += '{{"type": "dynstring", ' \
-                    u'"title": "{}", ' \
-                    u'"desc": "{}", ' \
-                    '"section": "course{}", ' \
-                    '"key": "name" ' \
-                    '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), i)
-            json += '{{"type": "dynstring", ' \
-                    u'"title": "{}", ' \
-                    u'"desc": "{}", ' \
-                    '"section": "course{}", ' \
-                    '"key": "abbr"' \
-                    '}},'.format(_(strings.courses_dialog['abbr_title']), _(strings.courses_dialog['abbr_descr']), i)
-            json += '{{"type": "color", ' \
-                    u'"title": "{}", ' \
-                    u'"desc": "{}", ' \
-                    '"section": "course{}", ' \
-                    '"key": "color"' \
-                    '}},'.format(_(strings.courses_dialog['col_title']), _(strings.courses_dialog['col_descr']), i)
-            json += '{{"type": "bool", ' \
-                    u'"title": "{}", ' \
-                    u'"desc": "{}", ' \
-                    '"section": "course{}", ' \
-                    '"key": "active"' \
-                    '}}'.format(_(strings.courses_dialog['active_title']), _(strings.courses_dialog['active_descr']), i)
+            json += self.get_courses_json_by_course_id(i)
+            if i != (no_courses - 1):
+                json += ','
         json += ']'
+        return json
+
+    @staticmethod
+    def get_courses_json_by_course_id(course_id):
+        json = '{{"type": "dynstring", ' \
+               u'"title": "{}", ' \
+               u'"desc": "{}", ' \
+               '"section": "course{}", ' \
+               '"key": "name" ' \
+               '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), course_id)
+        json += '{{"type": "dynstring", ' \
+                u'"title": "{}", ' \
+                u'"desc": "{}", ' \
+                '"section": "course{}", ' \
+                '"key": "abbr"' \
+                '}},'.format(_(strings.courses_dialog['abbr_title']), _(strings.courses_dialog['abbr_descr']), course_id)
+        json += '{{"type": "color", ' \
+                u'"title": "{}", ' \
+                u'"desc": "{}", ' \
+                '"section": "course{}", ' \
+                '"key": "color"' \
+                '}},'.format(_(strings.courses_dialog['col_title']), _(strings.courses_dialog['col_descr']), course_id)
+        json += '{{"type": "bool", ' \
+                u'"title": "{}", ' \
+                u'"desc": "{}?", ' \
+                '"section": "course{}", ' \
+                '"key": "active"' \
+                '}}'.format(_(strings.courses_dialog['active_title']), _(strings.courses_dialog['active_descr']), course_id)
         return json

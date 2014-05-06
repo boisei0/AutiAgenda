@@ -102,31 +102,31 @@ msgstr "{0} skapad av {1} för Kivy App contest 2014."
 
 #: strings.py:47
 msgid "Name"
-msgstr "namn"
+msgstr "Namn"
 
 #: strings.py:48
 msgid "Name of the course"
-msgstr "skolämne"
+msgstr "Skolämne"
 
 #: strings.py:49
 msgid "Abbreviation"
-msgstr "förkortning"
+msgstr "Förkortning"
 
 #: strings.py:50
 msgid "Abbreviation of the course"
-msgstr "förkortning av skolämnet"
+msgstr "Förkortning av skolämnet"
 
 #: strings.py:51
 msgid "Colour"
-msgstr "färg"
+msgstr "Färg"
 
 #: strings.py:52
 msgid "Colour of the course"
-msgstr "färg av skolämnet"
+msgstr "Färg av skolämnet"
 
 #: strings.py:53
 msgid "Active"
-msgstr "aktiv"
+msgstr "Aktiv"
 
 #: strings.py:54
 msgid "Is the course active"
@@ -171,3 +171,7 @@ msgstr "inställningar"
 #: strings.py:70
 msgid "close"
 msgstr "avsluta"
+
+#: strings.py:72
+msgid "course"
+msgstr "skolämnet"

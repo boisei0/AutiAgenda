@@ -175,3 +175,7 @@ msgstr "fermer"
 #: strings.py:71
 msgid "lesson"
 msgstr "cours"
+
+#: strings.py:72
+msgid "course"
+msgstr "matière"

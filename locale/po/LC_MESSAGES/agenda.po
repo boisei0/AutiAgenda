@@ -130,7 +130,7 @@ msgstr "activo"
 
 #: strings.py:54
 msgid "Is the course active"
-msgstr "A cadeira/disciplina está activa?"
+msgstr "A cadeira está activa?"
 
 #: strings.py:58
 msgid "Yesterday"
@@ -175,3 +175,7 @@ msgstr "fechar"
 #: strings.py:71
 msgid "lesson"
 msgstr "aula"
+
+#: strings.py:72
+msgid "course"
+msgstr "cadeira"

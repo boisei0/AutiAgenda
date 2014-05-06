@@ -23,6 +23,7 @@ import gettext
 from os import path
 
 from datepicker import DatePicker
+from dbhandler import DBHandler
 from debug import DebugTools
 from settings import CustomSettings, JSONData
 from strings import TextData, get_locale, list_translations, cap_first_letter
@@ -68,6 +69,7 @@ if system_locale != 'en' and system_locale in translations.keys():
     translations[system_locale].install()
 
 strings = TextData()
+dbh = DBHandler()
 json_data = JSONData()
 
 
@@ -157,8 +159,10 @@ class AgendaCore(BoxLayout):
         self.courses_settings = CustomSettings(interface_cls=InterfaceWithSpinner)
         self.courses_settings.set_self_awareness(self.courses_popup)
 
-        self.courses_settings.add_json_panel(cap_first_letter(_(strings.text['courses'])), config_courses,
-                                             data=json_data.get_courses_json())
+        for course_id in range(dbh.get_no_courses()):
+            json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
+            self.courses_settings.add_json_panel(u'{} {}'.format(cap_first_letter(_(strings.text['course'])),
+                                                 course_id), config_courses, data=json)
         self.courses_popup.content = self.courses_settings
 
     def open_top_menu_more(self, root):

@@ -3,28 +3,28 @@
         "type": "dynstring",
         "title": "Name",
         "desc": "Name of the course",
-        "section": "course1",
+        "section": "course0",
         "key": "name"
     },
     {
         "type": "dynstring",
         "title": "Abbreviation",
         "desc": "Abbreviation of the course",
-        "section": "course1",
+        "section": "course0",
         "key": "abbr"
     },
     {
         "type": "color",
         "title": "Colour",
         "desc": "Colour of the course",
-        "section": "course1",
+        "section": "course0",
         "key": "color"
     },
     {
         "type": "bool",
         "title": "Active",
-        "desc": "Is the course active",
-        "section": "course1",
+        "desc": "Is the course active?",
+        "section": "course0",
         "key": "active"
     }
 ]

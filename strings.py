@@ -69,7 +69,8 @@ class TextData:
         'agenda': _('personal organizer'),
         'settings': _('settings'),  # as in: software settings
         'close': _('close'),  # as in: to close
-        'lesson': _('lesson')
+        'lesson': _('lesson'),
+        'course': _('course')  # course as in: subject, 'study material'
     }
 
     languages = {

@@ -174,3 +174,7 @@ msgstr "sluiten"
 #: strings.py:71
 msgid "lesson"
 msgstr "les"
+
+#: strings.py:72
+msgid "course"
+msgstr "vak"

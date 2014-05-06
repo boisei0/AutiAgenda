@@ -14,7 +14,7 @@ source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
 # WARNING: REMOVE db AND pkl FROM THIS LIST BEFORE RELEASE !!!
-source.include_exts = py,png,jpg,kv,atlas,txt,po,mo,ini,json,db,pkl
+source.include_exts = py,png,jpg,kv,atlas,txt,mo,ini,json,db,pkl
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec,pyc,pyo
