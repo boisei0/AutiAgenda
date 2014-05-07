@@ -26,11 +26,11 @@ source.include_exts = py,png,jpg,kv,atlas,txt,mo,ini,json,db,pkl
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-#version.regex = __version__ = ['"](.*)'['"]
-#version.filename = %(source.dir)s/main.py
+version.regex = __version__ = ['"](.*)['"]
+version.filename = %(source.dir)s/main.py
 
 # (str) Application versioning (method 2)
-version = 0.1
+# version = 0.2
 
 # (list) Application requirements
 requirements = sqlite3,kivy

@@ -30,7 +30,7 @@ from strings import TextData, get_locale, list_translations, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
-__version__ = '0.1'
+__version__ = '0.2'
 
 base_path = path.dirname(path.abspath(__file__))
 
@@ -44,11 +44,7 @@ settings = CustomSettings(interface_cls=InterfaceWithSpinner)
 
 config_courses = ConfigParser()
 config_courses.read(path.join(base_path, 'config', 'courses.ini'))
-courses = CustomSettings(interface_cls=InterfaceWithSpinner)
-if kivy.app.platform == 'win' or kivy.app.platform == 'android':
-    courses.add_json_panel('Course 1', config_courses, path.join(base_path, 'config', 'courses.json'))
-else:
-    courses.add_json_panel('Course 1', config_courses, path.join('config', 'courses.json'))
+courses = CustomSettings()
 
 Factory.register('DatePicker', DatePicker)
 
@@ -107,6 +103,11 @@ class AgendaCore(BoxLayout):
 
         self.courses_popup.attach_to = self
         self.courses_settings = courses
+        for course_id in range(dbh.get_no_courses()):
+            json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
+            self.courses_settings.add_json_panel(u'{} {}'.format(cap_first_letter(_(strings.text['course'])),
+                                                 course_id), config_courses, data=json)
+        self.courses_settings.set_interface_text()
         self.courses_popup.content = self.courses_settings
 
     def open_settings_dialog(self):
@@ -120,10 +121,6 @@ class AgendaCore(BoxLayout):
 
     def display_courses(self):
         self.courses_popup.open()
-        self.top_menu_more.dismiss()
-
-    def display_schedule(self):
-        print('schedule')
         self.top_menu_more.dismiss()
 
     def display_about(self):
@@ -140,9 +137,12 @@ class AgendaCore(BoxLayout):
         self.selected_date -= datetime.timedelta(days=1)
         self.selected_day_text = self.format_selected_date()
 
-    def new_activity(self):
+    def display_schedule(self):
+        print('schedule')
+        self.top_menu_more.dismiss()
+
         print('Installing translations...')
-        translations['se'].install(unicode=True)
+        translations['po'].install(unicode=True)
 
         self._on_translate()
 
@@ -160,6 +160,7 @@ class AgendaCore(BoxLayout):
             json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
             self.courses_settings.add_json_panel(u'{} {}'.format(cap_first_letter(_(strings.text['course'])),
                                                  course_id), config_courses, data=json)
+        self.courses_settings.set_interface_text()
         self.courses_popup.content = self.courses_settings
 
     def open_top_menu_more(self, root):

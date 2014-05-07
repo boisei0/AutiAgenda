@@ -1,0 +1,45 @@
+<CustomSettings>:
+    orientation: 'horizontal'
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<CustomInterfaceWithSpinner>:
+    orientation: 'vertical'
+    menu: new_menu
+    content: content
+    CustomMenuSpinner:
+        id: new_menu
+    ContentPanel:
+        id: content
+        current_uid: new_menu.selected_uid
+
+
+<CustomMenuSpinner>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '50dp'
+    spinner: spinner
+    spinner_text: spinner.text
+    close_button: close_button
+    add_course_button: add_course_button
+    Spinner:
+        id: spinner
+    Button:
+        id: add_course_button
+        size_hint_x: None
+        width: min(dp(100), 0.3 * root.width)
+        Image:
+            source: 'res/drawable-mdpi/ic_input_add.png'
+            keep_ratio: True
+            allow_stretch: True
+            center: add_course_button.center[0], add_course_button.center[1]
+    Button:
+        id: close_button
+        size_hint_x: None
+        width: min(dp(200), 0.4 * root.width)
+        font_size: '15sp'

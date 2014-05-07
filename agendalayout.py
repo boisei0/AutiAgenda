@@ -31,7 +31,7 @@ class AgendaLayout(BoxLayout):
         self.orientation = 'vertical'
         self.widgets = 0
         self.size_hint_y = None
-        self.height = '60cm'
+        self.height = '32cm'
         self.spacing = 0
 
         draw_background(self)
@@ -41,7 +41,7 @@ class AgendaLayout(BoxLayout):
         self._fill_day()
 
     def _fill_day(self):
-        for i in range(61):
+        for i in range(65):
             self.add_widget(AgendaItem(timestamp=(i * 60 * 15) + self.time))
 
     def on_update(self):
@@ -55,13 +55,16 @@ class AgendaItem(BoxLayout):
 
         self.orientation = 'horizontal'
         self.size_hint_y = None
-        self.height = '1cm'
+        self.height = '0.5cm'
         self.spacing = 0
 
         self.whitespace_path = os.path.join(base_path, 'res', 'whitespace.png')
 
         time = datetime.datetime.utcfromtimestamp(timestamp).strftime('%H:%M')
-        self.label = Label(text='[color=3b72ff]{}[/color]'.format(time), size_hint_x=.2, markup=True)
+        self.label = Label(size_hint_x=.2, markup=True)
+        if time[-2:] == '00' or time[-2:] == '30':
+            self.label.text = '[color=3b72ff]{}[/color]'.format(time)
+        self.label.valign = 'top'  # FIXME
         self.item_button = Button(size_hint_x=.6)
         self.item_button.border = [0, 16, 0, 16]
 
