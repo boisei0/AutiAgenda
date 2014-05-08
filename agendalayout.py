@@ -96,4 +96,4 @@ class AgendaItem(BoxLayout):
 
 def draw_background(widget):
     widget.canvas.add(Color(background_colour[0], background_colour[1], background_colour[2], background_colour[3]))
-    widget.canvas.add(Rectangle(pos=[0, 0], size=[3000, 3000]))
+    widget.canvas.add(Rectangle(pos=[0, 0], size=[3000, 8000]))

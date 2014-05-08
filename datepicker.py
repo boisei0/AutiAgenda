@@ -12,10 +12,12 @@ import datetime
 import gettext
 
 from strings import TextData
+from debug import DebugTools
 
 __author__ = 'Rob Derksen (boisei0)'
 
 strings = TextData()
+debug = DebugTools()
 
 
 class DatePicker(BoxLayout):
@@ -30,22 +32,22 @@ class DatePicker(BoxLayout):
         # self.canvas.add(Color(0.81, 0.81, 0.81))
         # self.canvas.add(Rectangle(pos=[self.center_x, self.center_y], size=[self.width, self.height]))
 
-        top_row = BoxLayout(size_hint_y=None, height=(self.height / 3))
+        top_row = BoxLayout(size_hint_y=.12)
 
         self.selected_month = int(selected_month)
         self.selected_year = int(selected_year)
         self.selected_day = int(selected_day)
 
-        self.prev_month_button = Button(size_hint_x=0.2, size_hint_y=None, height=(self.width / 3), text='<-', bold=True)
+        self.prev_month_button = Button(size_hint_x=0.2, text='<-', bold=True)
         self.prev_month_button.bind(on_release=self.on_prev_month)
         top_row.add_widget(self.prev_month_button)
 
         self.selected_month_label = Label(text=u'[color=303030]{} {}[/color]'.format(_(strings.months[self.selected_month]),
                                                                                      self.selected_year),
-                                          size_hint_x=0.6, markup=True)
+                                          size_hint_x=0.6, markup=True, bold=True)
         top_row.add_widget(self.selected_month_label)
 
-        self.next_month_button = Button(size_hint_x=0.2, size_hint_y=None, height=(self.width / 3), text='->', bold=True)
+        self.next_month_button = Button(size_hint_x=0.2, text='->', bold=True)
         # self.next_month_button.background_normal = 'res/drawable-mdpi/ic_find_next_holo_dark.png'
         # self.next_month_button.background_down = 'res/drawable-mdpi/ic_find_next_holo_light.png'
         self.next_month_button.bind(on_release=self.on_next_month)

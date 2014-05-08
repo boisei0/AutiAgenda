@@ -175,14 +175,14 @@ class AgendaCore(BoxLayout):
         tomorrow_full = today + datetime.timedelta(days=1)
         tomorrow = datetime.datetime(year=tomorrow_full.year, month=tomorrow_full.month, day=tomorrow_full.day)
         if self.selected_date == today:
-            return _(strings.date_name['today'])
+            return cap_first_letter(_(strings.date_name['today']))
         elif self.selected_date == yesterday:
-            return _(strings.date_name['yesterday'])
+            return cap_first_letter(_(strings.date_name['yesterday']))
         elif self.selected_date == tomorrow:
-            return _(strings.date_name['tomorrow'])
+            return cap_first_letter(_(strings.date_name['tomorrow']))
         else:
             month = _(strings.months[int(self.selected_date.strftime('%m'))])
-            return self.selected_date.strftime(u'%d {} %Y'.format(month))
+            return self.selected_date.strftime(u'%d {} %Y'.format(month))  # FIXME: UTF-8
 
 
 class AgendaTopMenuDropDown(DropDown):

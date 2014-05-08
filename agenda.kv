@@ -20,14 +20,16 @@
         Image:
             id: logo
             source: 'res/logo.png'
-            size_x: app.window.width / 7
+            size_hint_x: 0.2
+            #size_x: app.window.width / 7
             keep_ratio: True
             allow_stretch: True
 
         Button:
             id: prev_day_button
             text: ''
-            size: app.window.width / 7, app.window.width / 7
+            size_hint_x: 0.1
+            #size: app.window.width / 7, app.window.width / 7
             on_release: root.display_prev_day()
             Image:
                 source: 'res/drawable-mdpi/ic_find_previous_holo_light.png'
@@ -38,13 +40,15 @@
         Button:
             id: selected_day_button
             text: root.selected_day_text
-            size: app.window.width / 7 * 2, app.window.width / 7
+            size_hint_x: 0.4
+            #size: app.window.width / 7 * 2, app.window.width / 7
             on_release: root.selected_date_dropdown.open(prev_day_button)
 
         Button:
             id: next_day_button
             text: ''
-            size: app.window.width / 7, app.window.width / 7
+            size_hint_x: 0.1
+            #size: app.window.width / 7, app.window.width / 7
             on_release: root.display_next_day()
             Image:
                 source: 'res/drawable-mdpi/ic_find_next_holo_light.png'
@@ -66,7 +70,8 @@
         Button:
             id: more_button
             text: ''
-            size: app.window.width / 7, app.window.width / 7
+            size_hint_x: 0.2
+            #size: app.window.width / 7, app.window.width / 7
             on_release: root.open_top_menu_more(self)
             Image:
                 source: 'res/drawable-mdpi/ic_menu_moreoverflow_normal_holo_light.png'
@@ -129,13 +134,13 @@
 
 
 <SelectedDateDropDown>:
-    width: app.window.width / 7 * 4
+    width: app.window.width / 7 * 5
     canvas:
         Color:
             rgba: (0.84, 0.84, 0.84, 1.0)
         Rectangle:
             pos: self.pos
-            size: [app.window.width / 7 * 4, app.window.height / 2]
+            size: [app.window.width / 7 * 5, app.window.height / 2]
 
     DatePicker:
         id: date_picker
