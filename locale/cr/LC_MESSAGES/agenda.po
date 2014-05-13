@@ -1,0 +1,187 @@
+# AutiAgenda
+# Rob Derksen <boisei0@hubsec.eu>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AutiAgenda 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-29 16:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: strings.py:17
+msgid "January"
+msgstr "Siječanj"
+
+#: strings.py:18
+msgid "February"
+msgstr "Veljača"
+
+#: strings.py:19
+msgid "March"
+msgstr "Ožujak"
+
+#: strings.py:20
+msgid "April"
+msgstr "Travanj"
+
+#: strings.py:21
+msgid "May"
+msgstr "Svibanj"
+
+#: strings.py:22
+msgid "June"
+msgstr "Lipanj"
+
+#: strings.py:23
+msgid "July"
+msgstr "Srpanj"
+
+#: strings.py:24
+msgid "August"
+msgstr "Kolovoz"
+
+#: strings.py:25
+msgid "September"
+msgstr "Rujan"
+
+#: strings.py:26
+msgid "October"
+msgstr "Listopad"
+
+#: strings.py:27
+msgid "November"
+msgstr "Studeni"
+
+#: strings.py:28
+msgid "December"
+msgstr "Prosinac"
+
+#: strings.py:32
+msgid "Mo"
+msgstr "Po"
+
+#: strings.py:33
+msgid "Tu"
+msgstr "Ut"
+
+#: strings.py:34
+msgid "We"
+msgstr "Sr"
+
+#: strings.py:35
+msgid "Th"
+msgstr "Če"
+
+#: strings.py:36
+msgid "Fr"
+msgstr "Pe"
+
+#: strings.py:37
+msgid "Sa"
+msgstr "Su"
+
+#: strings.py:38
+msgid "Su"
+msgstr "Ne"
+
+#: strings.py:42
+msgid "About..."
+msgstr "O programu..."
+
+#: strings.py:43
+#, python-brace-format
+msgid "{0} was made by {1} for the Kivy App Contest 2014."
+msgstr "{0} je izradio {1} za Kivy App Contest 2014."
+
+#: strings.py:47
+msgid "Name"
+msgstr "Naziv"
+
+#: strings.py:48
+msgid "Name of the course"
+msgstr "Naziv predmeta"
+#msgstr "Naziv teme"
+
+#: strings.py:49
+msgid "Abbreviation"
+msgstr "Skraćeno"
+
+#: strings.py:50
+msgid "Abbreviation of the course"
+msgstr "Skraćeni naziv predmeta"
+#msgstr "Skraćeni naziv teme"
+
+#: strings.py:51
+msgid "Colour"
+msgstr "Boja"
+
+#: strings.py:52
+msgid "Colour of the course"
+msgstr "Boja predmeta"
+#msgstr "Boja teme"
+
+#: strings.py:53
+msgid "Active"
+msgstr "Aktivno"
+
+#: strings.py:54
+msgid "Is the course active"
+msgstr "Je li predmet aktivan"
+#msgstr "Je li tema aktivna"
+
+#: strings.py:58
+msgid "Yesterday"
+msgstr "Jučer"
+
+#: strings.py:59
+msgid "Today"
+msgstr "Danas"
+
+#: strings.py:60
+msgid "Tomorrow"
+msgstr "Sutra"
+
+#: strings.py:64
+msgid "homework"
+msgstr "zadaća"
+
+#: strings.py:65
+msgid "schedule"
+msgstr "raspored"
+
+#: strings.py:66
+msgid "courses"
+msgstr "predmeti"
+#msgstr "teme"
+
+#: strings.py:67
+msgid "synchronise"
+msgstr "sinkroniziraj"
+
+#: strings.py:68
+msgid "personal organizer"
+msgstr "Osobni organizator"
+
+#: strings.py:69
+msgid "settings"
+msgstr "Postavke"
+
+#: strings.py:70
+msgid "close"
+msgstr "zatvori"
+
+#: strings.py:71
+msgid "lesson"
+msgstr "lekcija"
+
+#: strings.py:72
+msgid "course"
+msgstr "predmet"
+#msgstr "teme"

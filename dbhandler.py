@@ -139,7 +139,7 @@ class DBHandler:
             timestamp = datetime.datetime.utcfromtimestamp(timestamp)
         sse = unix_time(timestamp)
         query = 'SELECT id FROM Activity WHERE ? >= timestamp_from AND ? < timestamp_to'
-        return self._cur.execute(query, (sse, sse,)).fetchall()[0][0]
+        return self._cur.execute(query, (sse, sse,)).fetchall()[0][0]  # FIXME: Potential crash...
 
 
 class ActivityModel:

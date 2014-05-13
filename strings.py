@@ -83,7 +83,9 @@ class TextData:
         'se': 'Swedish',
         'ta': 'Tagalog',
         'po': 'Portuguese',
+        'pl': 'Polish',
         'dk': 'Danish',
+        'cr': 'Croatian'
     }
 
 

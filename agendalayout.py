@@ -1,7 +1,9 @@
 import kivy
 kivy.require('1.8.0')
 
+from kivy.app import App
 from kivy.graphics import Color, Rectangle
+from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -25,27 +27,35 @@ background_colour = [.8, 1, 1, 1]
 
 
 class AgendaLayout(BoxLayout):
+    agenda_core = ObjectProperty()
+
     def __init__(self, **kwargs):
         super(AgendaLayout, self).__init__(**kwargs)
 
         self.orientation = 'vertical'
-        self.widgets = 0
+        self.widgets = 0  # FIXME: Unused
         self.size_hint_y = None
         self.height = '32cm'
         self.spacing = 0
 
         draw_background(self)
 
-        self.time = int(unix_time(datetime.datetime.strptime('2014-05-06 7:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.app = App.get_running_app()
+        selected_date = self.app.selected_date
+        self.dt = datetime.datetime(selected_date.year, selected_date.month, selected_date.day, 7, 0, 0, 0)
 
         self._fill_day()
 
     def _fill_day(self):
+        self.clear_widgets()
+        sse = int(unix_time(self.dt))
         for i in range(65):
-            self.add_widget(AgendaItem(timestamp=(i * 60 * 15) + self.time))
+            self.add_widget(AgendaItem(timestamp=(i * 60 * 15) + sse))
 
     def on_update(self):
         self.clear_widgets()
+        selected_date = self.app.selected_date
+        self.dt = datetime.datetime(selected_date.year, selected_date.month, selected_date.day, 7, 0, 0, 0)
         self._fill_day()
 
 
@@ -60,7 +70,7 @@ class AgendaItem(BoxLayout):
 
         self.whitespace_path = os.path.join(base_path, 'res', 'whitespace.png')
 
-        time = datetime.datetime.utcfromtimestamp(timestamp).strftime('%H:%M')
+        time = datetime.datetime.utcfromtimestamp(timestamp).strftime('%H:%M')  # FIXME
         self.label = Label(size_hint_x=.2, markup=True)
         if time[-2:] == '00' or time[-2:] == '30':
             self.label.text = '[color=3b72ff]{}[/color]'.format(time)

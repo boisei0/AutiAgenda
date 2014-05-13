@@ -1,3 +1,5 @@
+#/!usr/bin/python
+# -*- coding: utf-8 -*-
 import kivy
 kivy.require('1.8.0')
 
@@ -21,29 +23,30 @@ except ImportError:
 import datetime
 import gettext
 from os import path
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')  # For all your ugly UnicodeEncodeErrors ;) Thanks a lot Kaivalagi, for making CF
 
 from datepicker import DatePicker
 from dbhandler import DBHandler
 from debug import DebugTools
+from schedule import Schedule
 from settings import CustomSettings, JSONData
 from strings import TextData, get_locale, list_translations, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
 __appname__ = 'AutiAgenda'
-__version__ = '0.2'
+__version__ = '0.2.4'
 
 base_path = path.dirname(path.abspath(__file__))
 
 debug = DebugTools()
 
-config_settings = ConfigParser()
-config_settings.read(path.join(base_path, 'config', 'autiagenda.ini'))
 settings = CustomSettings(interface_cls=InterfaceWithSpinner)
 # settings.add_json_panel('Date / Time', config, 'datetime.json')
 # TODO: Add settings / config later
 
-config_courses = ConfigParser()
-config_courses.read(path.join(base_path, 'config', 'courses.ini'))
 courses = CustomSettings()
 
 Factory.register('DatePicker', DatePicker)
@@ -73,8 +76,8 @@ class AgendaCore(BoxLayout):
     agenda_layout = ObjectProperty(None)
 
     selected_day_button = Button()
-    today = datetime.datetime.today()
-    selected_date = datetime.datetime(today.year, today.month, today.day)
+    # today = datetime.datetime.today()
+    # selected_date = datetime.datetime(today.year, today.month, today.day)
     selected_day_text = StringProperty('Today')
 
     about_popup = Popup(size_hint=(0.6, 0.5), auto_dismiss=False)
@@ -82,6 +85,8 @@ class AgendaCore(BoxLayout):
     settings_popup = Popup(title=_(cap_first_letter(strings.text['settings'])), size_hint=(0.95, 0.7),
                            auto_dismiss=False)
     courses_popup = Popup(title=_(cap_first_letter(strings.text['courses'])), size_hint=(0.95, 0.7), auto_dismiss=False)
+    schedule_popup = Popup(title=_(cap_first_letter(strings.text['schedule'])), size_hint=(0.95, 0.95),
+                           auto_dismiss=False)
 
     def __init__(self, app, **kwargs):
         super(AgendaCore, self).__init__(**kwargs)
@@ -99,6 +104,8 @@ class AgendaCore(BoxLayout):
 
         self.settings_popup.attach_to = self
         self.settings = settings
+        self.settings.add_json_panel(u'{}'.format(cap_first_letter(_(strings.text['schedule']))),
+                                     self.app.config_settings, data=json_data.get_settings_schedule_json())
         self.settings_popup.content = self.settings
 
         self.courses_popup.attach_to = self
@@ -106,9 +113,12 @@ class AgendaCore(BoxLayout):
         for course_id in range(dbh.get_no_courses()):
             json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
             self.courses_settings.add_json_panel(u'{} {}'.format(cap_first_letter(_(strings.text['course'])),
-                                                 course_id), config_courses, data=json)
+                                                 course_id), self.app.config_courses, data=json)
         self.courses_settings.set_interface_text()
         self.courses_popup.content = self.courses_settings
+
+        self.schedule_popup.attach_to = self
+        self.schedule_popup.content = Schedule()
 
     def open_settings_dialog(self):
         self.settings_popup.open()
@@ -130,19 +140,22 @@ class AgendaCore(BoxLayout):
         self.top_menu_more.dismiss()
 
     def display_next_day(self):
-        self.selected_date += datetime.timedelta(days=1)
+        self.app.selected_date += datetime.timedelta(days=1)
         self.selected_day_text = self.format_selected_date()
+        self.children[0].__self__.children[0].__self__.on_update()  # TODO: Reformat
 
     def display_prev_day(self):
-        self.selected_date -= datetime.timedelta(days=1)
+        self.app.selected_date -= datetime.timedelta(days=1)
         self.selected_day_text = self.format_selected_date()
+        self.children[0].__self__.children[0].__self__.on_update()  # TODO: Reformat
 
     def display_schedule(self):
         print('schedule')
+        self.schedule_popup.open()
         self.top_menu_more.dismiss()
 
         print('Installing translations...')
-        translations['po'].install(unicode=True)
+        translations['cr'].install(unicode=True)
 
         self._on_translate()
 
@@ -154,12 +167,12 @@ class AgendaCore(BoxLayout):
                                    auto_dismiss=False)
 
         self.courses_popup.attach_to = self
-        self.courses_settings = CustomSettings(interface_cls=InterfaceWithSpinner)
+        self.courses_settings = CustomSettings()
 
         for course_id in range(dbh.get_no_courses()):
             json = '[' + json_data.get_courses_json_by_course_id(course_id) + ']'
             self.courses_settings.add_json_panel(u'{} {}'.format(cap_first_letter(_(strings.text['course'])),
-                                                 course_id), config_courses, data=json)
+                                                 course_id), self.app.config_courses, data=json)
         self.courses_settings.set_interface_text()
         self.courses_popup.content = self.courses_settings
 
@@ -174,15 +187,15 @@ class AgendaCore(BoxLayout):
         yesterday = datetime.datetime(year=yesterday_full.year, month=yesterday_full.month, day=yesterday_full.day)
         tomorrow_full = today + datetime.timedelta(days=1)
         tomorrow = datetime.datetime(year=tomorrow_full.year, month=tomorrow_full.month, day=tomorrow_full.day)
-        if self.selected_date == today:
+        if self.app.selected_date == today:
             return cap_first_letter(_(strings.date_name['today']))
-        elif self.selected_date == yesterday:
+        elif self.app.selected_date == yesterday:
             return cap_first_letter(_(strings.date_name['yesterday']))
-        elif self.selected_date == tomorrow:
+        elif self.app.selected_date == tomorrow:
             return cap_first_letter(_(strings.date_name['tomorrow']))
         else:
-            month = _(strings.months[int(self.selected_date.strftime('%m'))])
-            return self.selected_date.strftime(u'%d {} %Y'.format(month))  # FIXME: UTF-8
+            month = _(strings.months[int(self.app.selected_date.strftime('%m'))])
+            return self.app.selected_date.strftime(u'%d {} %Y'.format(month))
 
 
 class AgendaTopMenuDropDown(DropDown):
@@ -249,7 +262,14 @@ class AgendaApp(App):
         self.profile = None
         self.debug = debug_mode
 
-        self.strings = strings
+        self.config_settings = ConfigParser()
+        self.config_settings.read(path.join(base_path, 'config', 'autiagenda.ini'))
+
+        self.config_courses = ConfigParser()
+        self.config_courses.read(path.join(base_path, 'config', 'courses.ini'))
+
+        today = datetime.datetime.today()
+        self.selected_date = datetime.datetime(today.year, today.month, today.day)
 
     def build(self):
         from kivy.base import EventLoop

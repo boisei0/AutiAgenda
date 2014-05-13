@@ -87,6 +87,7 @@
 
         AgendaLayout:
             id: agenda_layout
+            agenda_core: root
 
 
 <AgendaTopMenuDropDown>:
@@ -178,3 +179,25 @@
         id: close_button
         text: root.close_button_text
         on_release: root.dismiss_dialog()
+
+<ScheduleDialog>:
+    orientation: 'vertical'
+
+    ScrollView:
+        id: schedule_scroll_view
+        size_hint: (None, None)
+        size: (app.window.width * 0.9, app.window.height * 0.9 - dp(50))
+        effect_cls: 'ScrollEffect'
+
+        Schedule:
+            id: schedule_layout
+
+        BoxLayout:
+            id: button_box
+            size_hint_y: None
+            height: dp(50)
+
+            Button:
+                id: add_course_button
+                text: root.add_course_button_text
+                on_release: root.on_close

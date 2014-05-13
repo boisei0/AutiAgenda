@@ -17,11 +17,14 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.widget import Widget
 
 import json
+import os
 
 from dbhandler import DBHandler
 from strings import TextData, cap_first_letter
 
 __author__ = 'Rob Derksen (boisei0)'
+
+base_path = os.path.dirname(os.path.abspath(__file__))
 
 dbh = DBHandler()
 strings = TextData()
@@ -190,7 +193,7 @@ class CustomSettings(BoxLayout):
                             join(kivy_data_dir, 'settings_kivy.json'))
 
     def on_add_course(self):
-        print('hi')
+        print('hi')  # TODO
 
 
 class SettingColor(SettingItem):
@@ -289,41 +292,49 @@ class JSONData:
         no_courses = dbh.get_no_courses()
         if no_courses == 0:
             return '[]'
-        json = '['
+        json_ = '['
         for i in range(no_courses):
-            json += self.get_courses_json_by_course_id(i)
+            json_ += self.get_courses_json_by_course_id(i)
             if i != (no_courses - 1):
-                json += ','
-        json += ']'
-        return json
+                json_ += ','
+        json_ += ']'
+        return json_
 
     @staticmethod
     def get_courses_json_by_course_id(course_id):
-        json = '{{"type": "dynstring", ' \
-               u'"title": "{}", ' \
-               u'"desc": "{}", ' \
-               '"section": "course{}", ' \
-               '"key": "name" ' \
-               '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), course_id)
-        json += '{{"type": "dynstring", ' \
+        json_ = '{{"type": "dynstring", ' \
                 u'"title": "{}", ' \
                 u'"desc": "{}", ' \
                 '"section": "course{}", ' \
-                '"key": "abbr"' \
-                '}},'.format(_(strings.courses_dialog['abbr_title']), _(strings.courses_dialog['abbr_descr']), course_id)
-        json += '{{"type": "color", ' \
-                u'"title": "{}", ' \
-                u'"desc": "{}", ' \
-                '"section": "course{}", ' \
-                '"key": "color"' \
-                '}},'.format(_(strings.courses_dialog['col_title']), _(strings.courses_dialog['col_descr']), course_id)
-        json += '{{"type": "bool", ' \
-                u'"title": "{}", ' \
-                u'"desc": "{}?", ' \
-                '"section": "course{}", ' \
-                '"key": "active"' \
-                '}}'.format(_(strings.courses_dialog['active_title']), _(strings.courses_dialog['active_descr']), course_id)
-        return json
+                '"key": "name" ' \
+                '}},'.format(_(strings.courses_dialog['name_title']), _(strings.courses_dialog['name_descr']), course_id)
+        json_ += '{{"type": "dynstring", ' \
+                 u'"title": "{}", ' \
+                 u'"desc": "{}", ' \
+                 '"section": "course{}", ' \
+                 '"key": "abbr"' \
+                 '}},'.format(_(strings.courses_dialog['abbr_title']), _(strings.courses_dialog['abbr_descr']), course_id)
+        json_ += '{{"type": "color", ' \
+                 u'"title": "{}", ' \
+                 u'"desc": "{}", ' \
+                 '"section": "course{}", ' \
+                 '"key": "color"' \
+                 '}},'.format(_(strings.courses_dialog['col_title']), _(strings.courses_dialog['col_descr']), course_id)
+        json_ += '{{"type": "bool", ' \
+                 u'"title": "{}", ' \
+                 u'"desc": "{}?", ' \
+                 '"section": "course{}", ' \
+                 '"key": "active"' \
+                 '}}'.format(_(strings.courses_dialog['active_title']), _(strings.courses_dialog['active_descr']), course_id)
+        return json_
+
+    @staticmethod
+    def get_settings_schedule_json():
+        with open(os.path.join(base_path, 'config', 'schedule.json')) as f:
+            lines = f.readlines()
+        json_ = '\n'.join(lines)
+        # json_.format('')
+        return json_
 
 
 class CustomInterfaceWithSpinner(BoxLayout):
